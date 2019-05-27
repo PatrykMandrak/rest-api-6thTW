@@ -1,4 +1,4 @@
 package com.codecool.restAPI.Models;
 
-public class TestModel {
+public class KernelType {
 }
