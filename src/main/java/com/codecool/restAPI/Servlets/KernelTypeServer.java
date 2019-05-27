@@ -1,4 +1,4 @@
 package com.codecool.restAPI.Servlets;
 
-public class TestServlet {
+public class KernelTypeServer {
 }

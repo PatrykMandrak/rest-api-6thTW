@@ -1,4 +1,4 @@
 package com.codecool.restAPI.DAOs;
 
-public class TestDAO {
+public class OperationSystemDAO {
 }
