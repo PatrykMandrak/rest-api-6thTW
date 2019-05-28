@@ -15,6 +15,9 @@ public class OperationSystem {
     @ManyToOne
     private Kernel kernel;
 
+    @ManyToOne
+    private DefaultDesktopEnvironment defaultDesktopEnvironment;
+
 
     public OperationSystem() {
 
