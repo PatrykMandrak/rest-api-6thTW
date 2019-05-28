@@ -7,9 +7,8 @@
     <persistence-unit name="jpaexamplePU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-<!--        <class>com.codecool.jpaexample.model.Student</class>
-        <class>com.codecool.jpaexample.model.Address</class>
-        <class>com.codecool.jpaexample.model.Klass</class>-->
+        <class>com.codecool.restAPI.Models.Kernel</class>
+
 
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>
