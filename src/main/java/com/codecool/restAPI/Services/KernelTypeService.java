@@ -13,15 +13,15 @@ public class KernelTypeService {
     }
 
     public void persist(KernelType entity) {
-        kernelTypeDAO.openCurrentSessionwithTransaction();
+        kernelTypeDAO.openCurrentSessionWithTransaction();
         kernelTypeDAO.persist(entity);
-        kernelTypeDAO.closeCurrentSessionwithTransaction();
+        kernelTypeDAO.closeCurrentSessionWithTransaction();
     }
 
     public void update(KernelType entity) {
-        kernelTypeDAO.openCurrentSessionwithTransaction();
+        kernelTypeDAO.openCurrentSessionWithTransaction();
         kernelTypeDAO.update(entity);
-        kernelTypeDAO.closeCurrentSessionwithTransaction();
+        kernelTypeDAO.closeCurrentSessionWithTransaction();
     }
 
     public KernelType findById(String id) {
@@ -32,10 +32,10 @@ public class KernelTypeService {
     }
 
     public void delete(String id) {
-        kernelTypeDAO.openCurrentSessionwithTransaction();
+        kernelTypeDAO.openCurrentSessionWithTransaction();
         KernelType kernelType = kernelTypeDAO.findById(id);
         kernelTypeDAO.delete(kernelType);
-        kernelTypeDAO.closeCurrentSessionwithTransaction();
+        kernelTypeDAO.closeCurrentSessionWithTransaction();
     }
 
     public List<KernelType> findAll() {
@@ -46,12 +46,12 @@ public class KernelTypeService {
     }
 
     public void deleteAll() {
-        kernelTypeDAO.openCurrentSessionwithTransaction();
+        kernelTypeDAO.openCurrentSessionWithTransaction();
         kernelTypeDAO.deleteAll();
-        kernelTypeDAO.closeCurrentSessionwithTransaction();
+        kernelTypeDAO.closeCurrentSessionWithTransaction();
     }
 
-    public KernelTypeDAO kernelDAO() {
+    public KernelTypeDAO kernelTypeDAO() {
         return kernelTypeDAO;
     }
 }
