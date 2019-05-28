@@ -1,33 +1,53 @@
 package com.codecool.restAPI.Models;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "Kernel_Table")
 public class Kernel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "kernel_name")
+    //@Column(name = "kernel_name")
     private String name;
 
-    @Column(name = "kernel_description")
+    //@Column(name = "kernel_description")
     private String description;
 
-/*    @ManyToOne
-    private KernelType kernelType;*/
+    @ManyToOne
+    private KernelType kernelType;
+
+    @OneToMany(mappedBy = "kernel")
+    private Set<OperationSystem> operationSystems = new HashSet<>();
+
 
     public Kernel() {
 
     }
 
     public Kernel(String name, String description) {
-        this.name = name;
-        this.description = description;
+        this.setName(name);
+        this.setDescription(description);
     }
 
+    public Kernel(String name, String description, Set<OperationSystem> operationSystems) {
+        this(name, description);
+        this.setOperationSystems(operationSystems);
+    }
+
+    public Kernel(String name, String description, KernelType kernelType) {
+        this(name, description);
+        this.kernelType = kernelType;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Kernel: " + this.getId() + ", " + this.getName() + ", " + this.getDescription();
+    }
 
     public Long getId() {
         return id;
@@ -53,8 +73,23 @@ public class Kernel {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Kernel: " + this.id + ", " + this.name + ", " + this.description;
+    public KernelType getKernelType() {
+        return kernelType;
+    }
+
+    public void setKernelType(KernelType kernelType) {
+        this.kernelType = kernelType;
+    }
+
+    public Set<OperationSystem> getOperationSystems() {
+        return operationSystems;
+    }
+
+    public void setOperationSystems(Set<OperationSystem> operationSystems) {
+        this.operationSystems = operationSystems;
+    }
+
+    public void addOperationSystem(OperationSystem operationSystem) {
+        operationSystems.add(operationSystem);
     }
 }

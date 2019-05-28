@@ -1,6 +1,8 @@
 package com.codecool.restAPI.DAOs;
 
+import com.codecool.restAPI.Models.Kernel;
 import com.codecool.restAPI.Models.KernelType;
+import com.codecool.restAPI.Models.OperationSystem;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -35,11 +37,9 @@ public class KernelTypeDAO implements IDAO<KernelType, Long>{
     }
 
     private static SessionFactory getSessionFactory() {
-        Configuration configuration = new Configuration().configure();
-        configuration.addAnnotatedClass(KernelType.class);
-        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-                .applySettings(configuration.getProperties());
-        SessionFactory sessionFactory =  configuration.buildSessionFactory(builder.build());
+        // NEED FOR SPEEDFACTOR
+        Configuration configuration = new Configuration();
+        SessionFactory sessionFactory = configuration.configure().buildSessionFactory();
         return sessionFactory;
     }
 

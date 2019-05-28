@@ -35,11 +35,8 @@ public class DefaultDesktopEnvironmentDAO {
     }
 
     private static SessionFactory getSessionFactory() {
-        Configuration configuration = new Configuration().configure();
-        configuration.addAnnotatedClass(DefaultDesktopEnvironment.class);
-        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-                .applySettings(configuration.getProperties());
-        SessionFactory sessionFactory = configuration.buildSessionFactory(builder.build());
+        Configuration configuration = new Configuration();
+        SessionFactory sessionFactory = configuration.configure().buildSessionFactory();
         return sessionFactory;
     }
 

@@ -21,7 +21,7 @@ public class KernelDAO implements IDAO<Kernel, Long> {
         return currentSession;
     }
 
-    public Session openCurrentSessionwithTransaction() {
+    public Session openCurrentSessionWithTransaction() {
         currentSession = getSessionFactory().openSession();
         currentTransaction = currentSession.beginTransaction();
         return currentSession;
@@ -31,17 +31,14 @@ public class KernelDAO implements IDAO<Kernel, Long> {
         currentSession.close();
     }
 
-    public void closeCurrentSessionwithTransaction() {
+    public void closeCurrentSessionWithTransaction() {
         currentTransaction.commit();
         currentSession.close();
     }
 
     private static SessionFactory getSessionFactory() {
-        Configuration configuration = new Configuration().configure();
-        configuration.addAnnotatedClass(Kernel.class);
-        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-                .applySettings(configuration.getProperties());
-        SessionFactory sessionFactory =  configuration.buildSessionFactory(builder.build());
+        Configuration configuration = new Configuration();
+        SessionFactory sessionFactory = configuration.configure().buildSessionFactory();
         return sessionFactory;
     }
 

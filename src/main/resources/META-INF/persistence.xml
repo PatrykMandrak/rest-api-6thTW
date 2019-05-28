@@ -10,6 +10,7 @@
         <class>com.codecool.restAPI.Models.Kernel</class>
         <class>com.codecool.restAPI.Models.KernelType</class>
         <class>com.codecool.restAPI.Models.OperationSystem</class>
+        <class>com.codecool.restAPI.Models.DefaultDesktopEnvironment</class>
 
 
         <properties>

@@ -14,15 +14,15 @@ public class KernelService {
     }
 
     public void persist(Kernel entity) {
-        kernelDAO.openCurrentSessionwithTransaction();
+        kernelDAO.openCurrentSessionWithTransaction();
         kernelDAO.persist(entity);
-        kernelDAO.closeCurrentSessionwithTransaction();
+        kernelDAO.closeCurrentSessionWithTransaction();
     }
 
     public void update(Kernel entity) {
-        kernelDAO.openCurrentSessionwithTransaction();
+        kernelDAO.openCurrentSessionWithTransaction();
         kernelDAO.update(entity);
-        kernelDAO.closeCurrentSessionwithTransaction();
+        kernelDAO.closeCurrentSessionWithTransaction();
     }
 
     public Kernel findById(Long id) {
@@ -33,10 +33,10 @@ public class KernelService {
     }
 
     public void delete(Long id) {
-        kernelDAO.openCurrentSessionwithTransaction();
+        kernelDAO.openCurrentSessionWithTransaction();
         Kernel kernel = kernelDAO.findById(id);
         kernelDAO.delete(kernel);
-        kernelDAO.closeCurrentSessionwithTransaction();
+        kernelDAO.closeCurrentSessionWithTransaction();
     }
 
     public List<Kernel> findAll() {
@@ -47,9 +47,9 @@ public class KernelService {
     }
 
     public void deleteAll() {
-        kernelDAO.openCurrentSessionwithTransaction();
+        kernelDAO.openCurrentSessionWithTransaction();
         kernelDAO.deleteAll();
-        kernelDAO.closeCurrentSessionwithTransaction();
+        kernelDAO.closeCurrentSessionWithTransaction();
     }
 
     public KernelDAO kernelDAO() {

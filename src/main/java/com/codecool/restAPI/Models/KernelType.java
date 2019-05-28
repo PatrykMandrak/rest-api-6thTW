@@ -11,33 +11,62 @@ public class KernelType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "kernel_type_name")
+   // @Column(name = "kernel_type_name")
     private String name;
 
-    @Column(name = "kernel_type_description")
+    //@Column(name = "kernel_type_description")
     private String description;
 
-/*    @OneToMany(mappedBy = "kernelType")
-    private Set<Kernel> kernels = new HashSet<>();*/
-
-/*    public void addKernel(Kernel kernel) {
-        kernels.add(kernel);
-    }*/
+    @OneToMany(mappedBy = "kernelType")
+    private Set<Kernel> kernels = new HashSet<>();
 
     public KernelType() {
 
     }
 
     public KernelType(String name, String description) {
-        this.name = name;
-        this.description = description;
+        this.setName(name);
+        this.setDescription(description);
+    }
+
+    public KernelType(String name, String description, Set<Kernel> kernels) {
+        this(name, description);
+        this.setKernels(kernels);
+    }
+
+    public void addKernel(Kernel kernel) {
+        kernels.add(kernel);
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getId() {
-        return id;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Set<Kernel> getKernels() {
+        return kernels;
+    }
+
+    public void setKernels(Set<Kernel> kernels) {
+        this.kernels = kernels;
     }
 }

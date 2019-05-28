@@ -15,5 +15,7 @@
         <property name="hibernate.show_sql">true</property>
         <mapping class="com.codecool.restAPI.Models.Kernel"/>
         <mapping class="com.codecool.restAPI.Models.KernelType"/>
+        <mapping class="com.codecool.restAPI.Models.OperationSystem"/>
+        <mapping class="com.codecool.restAPI.Models.DefaultDesktopEnvironment"/>
     </session-factory>
 </hibernate-configuration>
