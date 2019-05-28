@@ -1,4 +1,4 @@
 package com.codecool.restAPI.Services;
 
-public class JsonService {
+public class ObjectToJsonService {
 }
