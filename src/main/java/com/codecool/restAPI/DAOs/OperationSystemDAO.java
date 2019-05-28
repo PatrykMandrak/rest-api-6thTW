@@ -9,7 +9,7 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
-public class OperationSystemDAO {
+public class OperationSystemDAO implements IDAO<OperationSystem, Long>{
     private Session currentSession;
 
     private Transaction currentTransaction;
@@ -67,7 +67,7 @@ public class OperationSystemDAO {
         getCurrentSession().merge(entity);
     }
 
-    public OperationSystem findById(String id) {
+    public OperationSystem findById(Long id) {
         OperationSystem operationSystem = (OperationSystem) getCurrentSession().get(OperationSystem.class, id);
         return operationSystem;
     }

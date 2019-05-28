@@ -9,7 +9,7 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
-public class KernelTypeDAO {
+public class KernelTypeDAO implements IDAO<KernelType, Long>{
     private Session currentSession;
 
     private Transaction currentTransaction;
@@ -67,7 +67,7 @@ public class KernelTypeDAO {
         getCurrentSession().merge(entity);
     }
 
-    public KernelType findById(String id) {
+    public KernelType findById(Long id) {
         KernelType kernelType = (KernelType) getCurrentSession().get(KernelType.class, id);
         return kernelType;
     }

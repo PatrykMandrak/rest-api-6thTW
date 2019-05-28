@@ -24,14 +24,14 @@ public class OperationSystemService {
         operationSystemDAO.closeCurrentSessionWithTransaction();
     }
 
-    public OperationSystem findById(String id) {
+    public OperationSystem findById(Long id) {
         operationSystemDAO.openCurrentSession();
         OperationSystem operationSystem = operationSystemDAO.findById(id);
         operationSystemDAO.closeCurrentSession();
         return operationSystem;
     }
 
-    public void delete(String id) {
+    public void delete(Long id) {
         operationSystemDAO.openCurrentSessionWithTransaction();
         OperationSystem operationSystem = operationSystemDAO.findById(id);
         operationSystemDAO.delete(operationSystem);

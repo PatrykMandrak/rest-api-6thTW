@@ -7,8 +7,8 @@ import javax.persistence.*;
 public class Kernel {
 
     @Id
-    @Column(name = "kernel_id")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "kernel_name")
     private String name;
@@ -16,14 +16,11 @@ public class Kernel {
     @Column(name = "kernel_description")
     private String description;
 
+/*    @ManyToOne
+    private KernelType kernelType;*/
+
     public Kernel() {
 
-    }
-
-    public Kernel(String id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
     }
 
     public Kernel(String name, String description) {
@@ -31,11 +28,12 @@ public class Kernel {
         this.description = description;
     }
 
-    public String getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

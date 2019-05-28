@@ -24,14 +24,14 @@ public class KernelTypeService {
         kernelTypeDAO.closeCurrentSessionWithTransaction();
     }
 
-    public KernelType findById(String id) {
+    public KernelType findById(Long id) {
         kernelTypeDAO.openCurrentSession();
         KernelType kernelType = kernelTypeDAO.findById(id);
         kernelTypeDAO.closeCurrentSession();
         return kernelType;
     }
 
-    public void delete(String id) {
+    public void delete(Long id) {
         kernelTypeDAO.openCurrentSessionWithTransaction();
         KernelType kernelType = kernelTypeDAO.findById(id);
         kernelTypeDAO.delete(kernelType);

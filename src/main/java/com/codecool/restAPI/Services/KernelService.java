@@ -25,14 +25,14 @@ public class KernelService {
         kernelDAO.closeCurrentSessionwithTransaction();
     }
 
-    public Kernel findById(String id) {
+    public Kernel findById(Long id) {
         kernelDAO.openCurrentSession();
         Kernel kernel = kernelDAO.findById(id);
         kernelDAO.closeCurrentSession();
         return kernel;
     }
 
-    public void delete(String id) {
+    public void delete(Long id) {
         kernelDAO.openCurrentSessionwithTransaction();
         Kernel kernel = kernelDAO.findById(id);
         kernelDAO.delete(kernel);

@@ -8,6 +8,8 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <class>com.codecool.restAPI.Models.Kernel</class>
+        <class>com.codecool.restAPI.Models.KernelType</class>
+        <class>com.codecool.restAPI.Models.OperationSystem</class>
 
 
         <properties>

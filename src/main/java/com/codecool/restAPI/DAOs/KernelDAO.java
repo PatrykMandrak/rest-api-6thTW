@@ -3,7 +3,6 @@ package com.codecool.restAPI.DAOs;
 import java.util.List;
 
 import com.codecool.restAPI.Models.Kernel;
-import com.fasterxml.classmate.AnnotationConfiguration;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -11,7 +10,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 
-public class KernelDAO implements IDAO<Kernel, String> {
+public class KernelDAO implements IDAO<Kernel, Long> {
 
     private Session currentSession;
 
@@ -70,7 +69,7 @@ public class KernelDAO implements IDAO<Kernel, String> {
         getCurrentSession().merge(entity);
     }
 
-    public Kernel findById(String id) {
+    public Kernel findById(Long id) {
         Kernel kernel = (Kernel) getCurrentSession().get(Kernel.class, id);
         return kernel;
     }
