@@ -2,6 +2,7 @@ package com.codecool.restAPI.Services;
 
 import com.codecool.restAPI.DAOs.KernelDAO;
 import com.codecool.restAPI.Models.Kernel;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.List;
 
@@ -54,5 +55,19 @@ public class KernelService {
 
     public KernelDAO kernelDAO() {
         return kernelDAO;
+    }
+
+    public String getKernelAsJson(List<String> splittedUri) throws JsonProcessingException {
+        ObjectToJsonService objectToJsonService = new ObjectToJsonService();
+
+        if (splittedUri.size() == 2) {
+            List<Kernel> operationSystemList = findAll();
+            return objectToJsonService.convertObjectToJson(operationSystemList);
+        } else if (splittedUri.size() == 3) {
+            Kernel operationSystem = findById(Long.getLong(splittedUri.get(3)));
+            return objectToJsonService.convertObjectToJson(operationSystem);
+        } else {
+            return "Your URL is too creazy brooooooo ";
+        }
     }
 }
