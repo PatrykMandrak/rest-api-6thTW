@@ -1,16 +1,12 @@
 package com.codecool.restAPI.Models;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 public class DefaultDesktopEnvironment {
 
     @Id
@@ -21,6 +17,9 @@ public class DefaultDesktopEnvironment {
 
     @OneToMany(mappedBy = "defaultDesktopEnvironment")
     @JsonManagedReference
+    @JsonIgnoreProperties(value = {"defaultDesktopEnvironment", "kernel"})
+    //@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+    //@JsonIdentityReference(alwaysAsId=true)
     private Set<OperationSystem> operationSystems = new HashSet<>();
 
     public DefaultDesktopEnvironment() {

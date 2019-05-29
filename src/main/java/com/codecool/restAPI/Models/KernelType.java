@@ -1,6 +1,7 @@
 package com.codecool.restAPI.Models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -20,7 +21,8 @@ public class KernelType {
     private String description;
 
     @OneToMany(mappedBy = "kernelType")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonManagedReference
+    @JsonIgnoreProperties({"kernelType", "operationSystems"})
     private Set<Kernel> kernels = new HashSet<>();
 
     public KernelType() {

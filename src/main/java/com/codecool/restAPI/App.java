@@ -7,6 +7,8 @@ import com.codecool.restAPI.Models.OperationSystem;
 import com.codecool.restAPI.Services.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import java.util.List;
+
 
 public class App {
     public static void main(String[] args) {
@@ -44,9 +46,9 @@ public class App {
 
         operationSystemService.persist(operationSystem1);
 
-        Kernel kernelFajny = kernelService.findById(new Long(1));
+        DefaultDesktopEnvironment defaultDesktopEnvironmentTest = defaultDesktopEnvironmentService.findById(new Long(1));
         try {
-            System.out.println(new ObjectToJsonService().convertObjectToJson(kernelFajny));
+            System.out.println(new ObjectToJsonService().convertObjectToJson(defaultDesktopEnvironmentTest));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

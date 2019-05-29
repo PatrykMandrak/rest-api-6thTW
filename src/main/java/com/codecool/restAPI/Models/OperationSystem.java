@@ -1,7 +1,7 @@
 package com.codecool.restAPI.Models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -18,11 +18,11 @@ public class OperationSystem {
     private String name;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonIgnoreProperties({"operationSystems"})
     private Kernel kernel;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonIgnoreProperties({"operationSystems"})
     private DefaultDesktopEnvironment defaultDesktopEnvironment;
 
 
@@ -37,7 +37,7 @@ public class OperationSystem {
     public OperationSystem(String name, Kernel kernel, DefaultDesktopEnvironment defaultDesktopEnvironment) {
         this(name);
         this.setKernel(kernel);
-        this.defaultDesktopEnvironment = defaultDesktopEnvironment;
+        this.setDefaultDesktopEnvironment(defaultDesktopEnvironment);
     }
 
 
@@ -63,5 +63,13 @@ public class OperationSystem {
 
     public void setKernel(Kernel kernel) {
         this.kernel = kernel;
+    }
+
+    public DefaultDesktopEnvironment getDefaultDesktopEnvironment() {
+        return defaultDesktopEnvironment;
+    }
+
+    public void setDefaultDesktopEnvironment(DefaultDesktopEnvironment defaultDesktopEnvironment) {
+        this.defaultDesktopEnvironment = defaultDesktopEnvironment;
     }
 }

@@ -1,9 +1,6 @@
 package com.codecool.restAPI.Models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -21,7 +18,7 @@ public class Kernel {
     private String description;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonIgnoreProperties({"kernels"})
     private KernelType kernelType;
 
     @OneToMany(mappedBy = "kernel")
