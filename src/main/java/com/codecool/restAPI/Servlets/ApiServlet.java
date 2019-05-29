@@ -1,9 +1,5 @@
 package com.codecool.restAPI.Servlets;
 
-import com.codecool.restAPI.Models.DefaultDesktopEnvironment;
-import com.codecool.restAPI.Models.Kernel;
-import com.codecool.restAPI.Models.KernelType;
-import com.codecool.restAPI.Models.OperationSystem;
 import com.codecool.restAPI.Services.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -21,7 +17,6 @@ public class ApiServlet extends HttpServlet {
     DefaultDesktopEnvironmentService defaultDesktopEnvironmentService = new DefaultDesktopEnvironmentService();
     KernelService kernelService = new KernelService();
     KernelTypeService kernelTypeService = new KernelTypeService();
-    ObjectToJsonService objectToJsonService = new ObjectToJsonService();
 
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
@@ -29,11 +24,13 @@ public class ApiServlet extends HttpServlet {
 
         String uri = request.getRequestURI();
         List<String> splittedUri = getFixedSplittedUri(uri);
-        String apiKey = splittedUri.get(0);
+        String apiKey = splittedUri.get(0); // apiKEY
+        String element = splittedUri.get(1); // elementTYPE
 
         String stringResponse;
         if (checkIfValiKey(apiKey)) {
             stringResponse = getEntityString(splittedUri);
+            ///
         } else {
             stringResponse = "Invalid Uri";
         }
@@ -67,6 +64,7 @@ public class ApiServlet extends HttpServlet {
                 case "operationSystems":
                     return operationSystemService.getOperationSystemAsJson(splittedUri);
                 case "kernels":
+                    System.out.println("we are in case KERNELS");
                     return kernelService.getKernelAsJson(splittedUri);
                 case "kernelTypes":
                     return kernelTypeService.getKernelTypeAsJson(splittedUri);

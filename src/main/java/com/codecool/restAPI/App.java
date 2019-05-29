@@ -7,6 +7,7 @@ import com.codecool.restAPI.Models.OperationSystem;
 import com.codecool.restAPI.Services.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,10 +15,13 @@ public class App {
     public static void main(String[] args) {
         System.out.println("dupa");
 
+
+
         KernelService kernelService = new KernelService();
         KernelTypeService kernelTypeService = new KernelTypeService();
         OperationSystemService operationSystemService = new OperationSystemService();
         DefaultDesktopEnvironmentService defaultDesktopEnvironmentService = new DefaultDesktopEnvironmentService();
+
 
         KernelType kernelType1 = new KernelType("kernelTypeName1", "kernelTypeDescription1");
 
