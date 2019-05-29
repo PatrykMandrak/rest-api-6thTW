@@ -4,10 +4,8 @@ import com.codecool.restAPI.Models.DefaultDesktopEnvironment;
 import com.codecool.restAPI.Models.Kernel;
 import com.codecool.restAPI.Models.KernelType;
 import com.codecool.restAPI.Models.OperationSystem;
-import com.codecool.restAPI.Services.DefaultDesktopEnvironmentService;
-import com.codecool.restAPI.Services.KernelService;
-import com.codecool.restAPI.Services.KernelTypeService;
-import com.codecool.restAPI.Services.OperationSystemService;
+import com.codecool.restAPI.Services.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 
 public class App {
@@ -45,6 +43,13 @@ public class App {
         defaultDesktopEnvironmentService.persist(defaultDesktopEnvironment);
 
         operationSystemService.persist(operationSystem1);
+
+        Kernel kernelFajny = kernelService.findById(new Long(1));
+        try {
+            System.out.println(new ObjectToJsonService().convertObjectToJson(kernelFajny));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ObjectToJsonService {
     ObjectMapper mapper;
 
-    ObjectToJsonService() {
+    public ObjectToJsonService() {
         this.mapper = new ObjectMapper();
     }
 

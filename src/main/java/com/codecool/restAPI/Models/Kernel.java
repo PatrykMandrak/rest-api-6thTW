@@ -1,5 +1,10 @@
 package com.codecool.restAPI.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,9 +21,11 @@ public class Kernel {
     private String description;
 
     @ManyToOne
+    @JsonBackReference
     private KernelType kernelType;
 
     @OneToMany(mappedBy = "kernel")
+    @JsonManagedReference
     private Set<OperationSystem> operationSystems = new HashSet<>();
 
 
