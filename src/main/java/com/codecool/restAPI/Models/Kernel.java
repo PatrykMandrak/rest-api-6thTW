@@ -11,10 +11,8 @@ public class Kernel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@Column(name = "kernel_name")
     private String name;
 
-    //@Column(name = "kernel_description")
     private String description;
 
     @ManyToOne

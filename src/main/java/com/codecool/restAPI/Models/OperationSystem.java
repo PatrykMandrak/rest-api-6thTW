@@ -9,7 +9,6 @@ public class OperationSystem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "operation_system_name")
     private String name;
 
     @ManyToOne
@@ -27,9 +26,10 @@ public class OperationSystem {
         this.setName(name);
     }
 
-    public OperationSystem(String name, Kernel kernel) {
+    public OperationSystem(String name, Kernel kernel, DefaultDesktopEnvironment defaultDesktopEnvironment) {
         this(name);
         this.setKernel(kernel);
+        this.defaultDesktopEnvironment = defaultDesktopEnvironment;
     }
 
 

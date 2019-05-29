@@ -11,10 +11,8 @@ public class KernelType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-   // @Column(name = "kernel_type_name")
     private String name;
 
-    //@Column(name = "kernel_type_description")
     private String description;
 
     @OneToMany(mappedBy = "kernelType")

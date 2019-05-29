@@ -1,9 +1,6 @@
 package com.codecool.restAPI.Models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,12 +8,49 @@ import java.util.Set;
 public class DefaultDesktopEnvironment {
 
     @Id
-    @Column(name = "default_dekstop_environment_id")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "default_dekstop_environment_name")
     private String name;
 
     @OneToMany(mappedBy = "defaultDesktopEnvironment")
     private Set<OperationSystem> operationSystems = new HashSet<>();
+
+    public DefaultDesktopEnvironment() {
+
+    }
+
+    public DefaultDesktopEnvironment(String name) {
+        this.name = name;
+    }
+
+    public DefaultDesktopEnvironment(String name, Set<OperationSystem> operationSystems) {
+        this(name);
+        this.operationSystems = operationSystems;
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<OperationSystem> getOperationSystems() {
+        return operationSystems;
+    }
+
+    public void setOperationSystems(Set<OperationSystem> operationSystems) {
+        this.operationSystems = operationSystems;
+    }
 }
