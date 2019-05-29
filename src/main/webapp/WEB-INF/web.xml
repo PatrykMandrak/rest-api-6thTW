@@ -6,13 +6,13 @@
     <display-name>Archetype Created Web Application</display-name>
 
     <servlet>
-        <servlet-name>MyServlet</servlet-name>
-        <servlet-class>com.codecool.restAPI.Servlets.###</servlet-class>
+        <servlet-name>ApiServlet</servlet-name>
+        <servlet-class>com.codecool.restAPI.Servlets.ApiServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>MyServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <servlet-name>ApiServlet</servlet-name>
+        <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
 
 </web-app>
