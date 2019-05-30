@@ -13,10 +13,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ApiServlet extends HttpServlet {
-    OperationSystemService operationSystemService = new OperationSystemService();
-    DefaultDesktopEnvironmentService defaultDesktopEnvironmentService = new DefaultDesktopEnvironmentService();
-    KernelService kernelService = new KernelService();
-    KernelTypeService kernelTypeService = new KernelTypeService();
+    private OperationSystemService operationSystemService = new OperationSystemService();
+    private DefaultDesktopEnvironmentService defaultDesktopEnvironmentService = new DefaultDesktopEnvironmentService();
+    private KernelService kernelService = new KernelService();
+    private KernelTypeService kernelTypeService = new KernelTypeService();
 
     @Override
     protected void doGet(HttpServletRequest request,
