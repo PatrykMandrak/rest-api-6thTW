@@ -91,13 +91,41 @@ public class OperationSystemService {
             OperationSystem newOperationSystem = new OperationSystem(operationSystemName, kernel, defaultDesktopEnvironment);
             persist(newOperationSystem);
 
-            return "Updated works"
+            return "ADDED"
 ;
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.toString());
         }
 
-        return "Updated doesn't work";
+        return "ERROR";
+    }
+
+    public String updateOperationSystem(HttpServletRequest request) {
+        try {
+            String operationSystemName = request.getParameter("name");
+            Long itemToUpdateId = Long.parseLong(request.getParameter("id"));
+            Long kernelId = Long.parseLong(request.getParameter("kernelId"));
+            Long defaultDesktopEnvironmentId = Long.parseLong(request.getParameter("desktopEnvironmentId"));
+
+            Kernel kernel = kernelService.findById(kernelId);
+            DefaultDesktopEnvironment defaultDesktopEnvironment = defaultDesktopEnvironmentService.findById(defaultDesktopEnvironmentId);
+
+            OperationSystem OperationSystemToUpdate = findById(itemToUpdateId);
+
+            OperationSystemToUpdate.setName(operationSystemName);
+            OperationSystemToUpdate.setKernel(kernel);
+            OperationSystemToUpdate.setDefaultDesktopEnvironment(defaultDesktopEnvironment);
+
+            update(OperationSystemToUpdate);
+
+            return "UPDATED"
+                    ;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.toString());
+        }
+
+        return "ERROR";
     }
 }

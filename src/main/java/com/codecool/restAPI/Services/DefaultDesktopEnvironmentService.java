@@ -74,4 +74,8 @@ public class DefaultDesktopEnvironmentService {
     public String addNewDefaultDesktopEnvironments(HttpServletRequest request) {
         return null;
     }
+
+    public String udateDefaultDesktopEnvironments(HttpServletRequest request) {
+        return null;
+    }
 }

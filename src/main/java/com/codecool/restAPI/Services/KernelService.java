@@ -75,4 +75,8 @@ public class KernelService {
     public String addNewKernel(HttpServletRequest request) {
         return null;
     }
+
+    public String udateKernel(HttpServletRequest request) {
+        return null;
+    }
 }

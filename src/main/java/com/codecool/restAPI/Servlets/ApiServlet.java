@@ -18,6 +18,7 @@ public class ApiServlet extends HttpServlet {
     KernelService kernelService = new KernelService();
     KernelTypeService kernelTypeService = new KernelTypeService();
 
+    @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
@@ -28,17 +29,18 @@ public class ApiServlet extends HttpServlet {
         String element = splittedUri.get(1); // elementTYPE
 
         String stringResponse;
-        if (checkIfValiKey(apiKey)) {
+        if (checkIfValidKey(apiKey)) {
             stringResponse = getEntityString(splittedUri);
             ///
         } else {
-            stringResponse = "Invalid Uri";
+            stringResponse = "Invalid Key";
         }
 
         System.out.println(uri);
         response.getWriter().write(stringResponse);
     }
 
+    @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
             throws ServletException, IOException {
@@ -49,10 +51,10 @@ public class ApiServlet extends HttpServlet {
         String element = splittedUri.get(1); // elementTYPE
 
         String stringResponse;
-        if (checkIfValiKey(apiKey)) {
+        if (checkIfValidKey(apiKey)) {
             stringResponse = addNewEntity(splittedUri, request);
         } else {
-            stringResponse = "Invalid Uri";
+            stringResponse = "Invalid Key";
         }
 
         System.out.println(uri);
@@ -61,15 +63,28 @@ public class ApiServlet extends HttpServlet {
 
     }
 
-    private boolean checkIfValiKey(String key) {
-        return true;
+    @Override
+    protected void doPut(HttpServletRequest request,
+                         HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String uri = request.getRequestURI();
+        List<String> splittedUri = getFixedSplittedUri(uri);
+        String apiKey = splittedUri.get(0); // apiKEY
+
+        String stringResponse;
+        if(checkIfValidKey(apiKey)) {
+            stringResponse = updateEntity(splittedUri, request);
+        } else {
+            stringResponse = "Invalid Key";
+        }
+
+        System.out.println(uri);
+        response.getWriter().write(stringResponse);
     }
 
-    private List<String> getFixedSplittedUri(String uri) {
-        List<String> fixedUriList = new LinkedList<String>(Arrays.asList(uri.split("/")));
-        fixedUriList.remove(0); // ""
-        fixedUriList.remove(0); // "api"
-        return fixedUriList;
+    private boolean checkIfValidKey(String key) {
+        return true;
     }
 
     private String getEntityString(List<String> splittedUri) {
@@ -108,6 +123,30 @@ public class ApiServlet extends HttpServlet {
                 return defaultDesktopEnvironmentService.addNewDefaultDesktopEnvironments(request);
         }
 
-        return "no such case";
+        return "invalidElementProvided";
+    }
+
+    private String updateEntity(List<String> splittedUri, HttpServletRequest request) {
+        String elementTypeString = splittedUri.get(1);
+
+        switch (elementTypeString) {
+            case "operationSystems":
+                return operationSystemService.updateOperationSystem(request);
+            case "kernels":
+                return kernelService.udateKernel(request);
+            case "kernelTypes":
+                return kernelTypeService.udateKernelType(request);
+            case "defaultDesktopEnvironments":
+                return defaultDesktopEnvironmentService.udateDefaultDesktopEnvironments(request);
+        }
+
+        return "invalidElementProvided";
+    }
+
+    private List<String> getFixedSplittedUri(String uri) {
+        List<String> fixedUriList = new LinkedList<String>(Arrays.asList(uri.split("/")));
+        fixedUriList.remove(0); // ""
+        fixedUriList.remove(0); // "api"
+        return fixedUriList;
     }
 }

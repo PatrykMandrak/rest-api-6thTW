@@ -74,4 +74,8 @@ public class KernelTypeService {
     public String addNewKernelType(HttpServletRequest request) {
         return null;
     }
+
+    public String udateKernelType(HttpServletRequest request) {
+        return null;
+    }
 }
