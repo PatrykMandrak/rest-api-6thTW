@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class OperationSystemService {
-    private static OperationSystemDAO operationSystemDAO;
+    private static OperationSystemDAO operationSystemDAO = new OperationSystemDAO();
     private KernelService kernelService = new KernelService();
     private DefaultDesktopEnvironmentService defaultDesktopEnvironmentService = new DefaultDesktopEnvironmentService();
 
@@ -57,10 +57,6 @@ public class OperationSystemService {
         operationSystemDAO.closeCurrentSessionWithTransaction();
     }
 
-    public OperationSystemDAO operationSystemDAO() {
-        return operationSystemDAO;
-    }
-
     public String getOperationSystemAsJson(List<String> splittedUri) throws JsonProcessingException {
         ObjectToJsonService objectToJsonService = new ObjectToJsonService();
 
@@ -71,7 +67,7 @@ public class OperationSystemService {
             OperationSystem operationSystem = findById(Long.getLong(splittedUri.get(3)));
             return objectToJsonService.convertObjectToJson(operationSystem);
         } else {
-            return "Your URL is too creazy brooooooo ";
+            return "Wrong URI";
         }
     }
 
@@ -87,8 +83,8 @@ public class OperationSystemService {
             OperationSystem newOperationSystem = new OperationSystem(operationSystemName, kernel, defaultDesktopEnvironment);
             persist(newOperationSystem);
 
-            return "Post works"
-;
+            return "Post works";
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.toString());
