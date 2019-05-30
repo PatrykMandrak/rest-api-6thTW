@@ -1,7 +1,5 @@
 package com.codecool.restAPI.Services;
 
-import com.codecool.restAPI.DAOs.DefaultDesktopEnvironmentDAO;
-import com.codecool.restAPI.DAOs.KernelDAO;
 import com.codecool.restAPI.DAOs.OperationSystemDAO;
 import com.codecool.restAPI.Models.DefaultDesktopEnvironment;
 import com.codecool.restAPI.Models.Kernel;
@@ -13,8 +11,6 @@ import java.util.List;
 
 public class OperationSystemService {
     private static OperationSystemDAO operationSystemDAO;
-    private DefaultDesktopEnvironmentDAO defaultDesktopEnvironmentDAO = new DefaultDesktopEnvironmentDAO();
-    private KernelDAO kernelDAO = new KernelDAO();
     private KernelService kernelService = new KernelService();
     private DefaultDesktopEnvironmentService defaultDesktopEnvironmentService = new DefaultDesktopEnvironmentService();
 
@@ -91,13 +87,13 @@ public class OperationSystemService {
             OperationSystem newOperationSystem = new OperationSystem(operationSystemName, kernel, defaultDesktopEnvironment);
             persist(newOperationSystem);
 
-            return "Updated works"
+            return "Post works"
 ;
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.toString());
         }
 
-        return "Updated doesn't work";
+        return "Post doesn't work";
     }
 }
