@@ -6,7 +6,6 @@ import com.codecool.restAPI.Models.Kernel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 
@@ -66,9 +65,6 @@ public class KernelDAO implements IDAO<Kernel, Long> {
         getCurrentSession().merge(entity);
     }
 
-    public boolean checkIfExistById(Long id) {
-        return findById(id) != null;
-    }
 
     public Kernel findById(Long id) {
         Kernel kernel = (Kernel) getCurrentSession().get(Kernel.class, id);

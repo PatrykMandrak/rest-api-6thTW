@@ -64,15 +64,42 @@ public class DefaultDesktopEnvironmentService {
             List<DefaultDesktopEnvironment> defaultDesktopEnvironmentList = findAll();
             return objectToJsonService.convertObjectToJson(defaultDesktopEnvironmentList);
         } else if (splittedUri.size() == 3) {
-            DefaultDesktopEnvironment defaultDesktopEnvironment = findById(Long.getLong(splittedUri.get(3)));
+            DefaultDesktopEnvironment defaultDesktopEnvironment = findById(Long.parseLong(splittedUri.get(2)));
             return objectToJsonService.convertObjectToJson(defaultDesktopEnvironment);
         } else {
-            return "Your URL is too creazy brooooooo ";
+            return "Wrong URI";
         }
     }
 
     public String addNewDefaultDesktopEnvironments(HttpServletRequest request) {
-        return null;
+        try {
+            String desktopEnviromentName = request.getParameter("name");
+
+            DefaultDesktopEnvironment newDefaultDesktopEnvironment = new DefaultDesktopEnvironment(desktopEnviromentName);
+            persist(newDefaultDesktopEnvironment);
+
+            return "Post works";
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return "Post doesn't work:\n\n" + e.toString();
+        }
+    }
+
+    public String deleteDesktopEnvironment(HttpServletRequest request) {
+        Long desktopEnvironmentId = Long.parseLong(request.getParameter("id"));
+
+        if (checkIfExistById(desktopEnvironmentId)) {
+            delete(desktopEnvironmentId);
+
+            return "Delete works";
+        } else {
+            return "Wrong id parameter. Check operation system id that You want to delete";
+        }
+    }
+
+    private boolean checkIfExistById(Long id) {
+        return findById(id) != null;
     }
 
     public String udateDefaultDesktopEnvironments(HttpServletRequest request) {

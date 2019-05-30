@@ -1,7 +1,5 @@
 package com.codecool.restAPI.Services;
 
-import com.codecool.restAPI.DAOs.DefaultDesktopEnvironmentDAO;
-import com.codecool.restAPI.DAOs.KernelDAO;
 import com.codecool.restAPI.DAOs.OperationSystemDAO;
 import com.codecool.restAPI.Models.DefaultDesktopEnvironment;
 import com.codecool.restAPI.Models.Kernel;
@@ -12,9 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class OperationSystemService {
-    private static OperationSystemDAO operationSystemDAO;
-    private DefaultDesktopEnvironmentDAO defaultDesktopEnvironmentDAO = new DefaultDesktopEnvironmentDAO();
-    private KernelDAO kernelDAO = new KernelDAO();
+    private static OperationSystemDAO operationSystemDAO = new OperationSystemDAO();
     private KernelService kernelService = new KernelService();
     private DefaultDesktopEnvironmentService defaultDesktopEnvironmentService = new DefaultDesktopEnvironmentService();
 
@@ -61,10 +57,6 @@ public class OperationSystemService {
         operationSystemDAO.closeCurrentSessionWithTransaction();
     }
 
-    public OperationSystemDAO operationSystemDAO() {
-        return operationSystemDAO;
-    }
-
     public String getOperationSystemAsJson(List<String> splittedUri) throws JsonProcessingException {
         ObjectToJsonService objectToJsonService = new ObjectToJsonService();
 
@@ -75,7 +67,7 @@ public class OperationSystemService {
             OperationSystem operationSystem = findById(Long.getLong(splittedUri.get(3)));
             return objectToJsonService.convertObjectToJson(operationSystem);
         } else {
-            return "Your URL is too creazy brooooooo ";
+            return "Wrong URI";
         }
     }
 
@@ -91,14 +83,15 @@ public class OperationSystemService {
             OperationSystem newOperationSystem = new OperationSystem(operationSystemName, kernel, defaultDesktopEnvironment);
             persist(newOperationSystem);
 
-            return "ADDED"
-;
+            return "Post works";
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.toString());
+
+            return "Post doesn't work:\n\n" + e.toString();
         }
 
-        return "ERROR";
     }
 
     public String updateOperationSystem(HttpServletRequest request) {
@@ -127,5 +120,23 @@ public class OperationSystemService {
         }
 
         return "ERROR";
+
     }
+
+    public String deleteOperationSystem(HttpServletRequest request) {
+        Long operationSystemId = Long.parseLong(request.getParameter("id"));
+
+        if (checkIfExistById(operationSystemId)) {
+            delete(operationSystemId);
+
+            return "Delete works";
+        } else {
+            return "Wrong id parameter. Check operation system id that You want to delete";
+        }
+    }
+
+    private boolean checkIfExistById(Long id) {
+        return findById(id) != null;
+    }
+
 }

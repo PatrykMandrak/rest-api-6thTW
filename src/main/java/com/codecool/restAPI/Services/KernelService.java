@@ -75,7 +75,39 @@ public class KernelService {
     }
 
     public String addNewKernel(HttpServletRequest request) {
-        return null;
+        try {
+            String kernelName = request.getParameter("name");
+            String kernelDescription = request.getParameter("description");
+            Long kernelTypeId = Long.parseLong(request.getParameter("kernelTypeId"));
+
+            KernelType kernelType = kernelTypeService.findById(kernelTypeId);
+
+            Kernel newKernel = new Kernel(kernelName, kernelDescription, kernelType);
+            persist(newKernel);
+
+            return "Post works";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return "Post doesn't work:\n\n" + e.toString();
+        }
+    }
+
+    public String deleteKernel(HttpServletRequest request) {
+        Long kernelId = Long.parseLong(request.getParameter("id"));
+
+        if (checkIfExistById(kernelId)) {
+            delete(kernelId);
+
+            return "Delete works";
+        } else {
+            return "Wrong id parameter. Check operation system id that You want to delete";
+        }
+    }
+
+    private boolean checkIfExistById(Long id) {
+        return findById(id) != null;
     }
 
     public String updateKernel(HttpServletRequest request) {

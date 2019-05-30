@@ -4,7 +4,6 @@ import com.codecool.restAPI.Models.DefaultDesktopEnvironment;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 import java.util.List;
@@ -63,11 +62,6 @@ public class DefaultDesktopEnvironmentDAO {
     public void update(DefaultDesktopEnvironment entity) {
         getCurrentSession().merge(entity);
     }
-
-    public boolean checkIfExistById(Long id) {
-        return findById(id) != null;
-    }
-
 
     public DefaultDesktopEnvironment findById(Long id) {
         DefaultDesktopEnvironment defaultDesktopEnvironment = (DefaultDesktopEnvironment) getCurrentSession().get(DefaultDesktopEnvironment.class, id);

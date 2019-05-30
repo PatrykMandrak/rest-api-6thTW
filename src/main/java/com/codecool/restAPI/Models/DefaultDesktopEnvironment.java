@@ -18,8 +18,8 @@ public class DefaultDesktopEnvironment {
     @OneToMany(mappedBy = "defaultDesktopEnvironment")
     @JsonManagedReference
     @JsonIgnoreProperties(value = {"defaultDesktopEnvironment", "kernel"})
-    //@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
-    //@JsonIdentityReference(alwaysAsId=true)
+/*    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+    @JsonIdentityReference(alwaysAsId=true)*/
     private Set<OperationSystem> operationSystems = new HashSet<>();
 
     public DefaultDesktopEnvironment() {

@@ -5,11 +5,6 @@ import com.codecool.restAPI.Models.Kernel;
 import com.codecool.restAPI.Models.KernelType;
 import com.codecool.restAPI.Models.OperationSystem;
 import com.codecool.restAPI.Services.*;
-import com.fasterxml.jackson.core.JsonProcessingException;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class App {
     public static void main(String[] args) {
@@ -46,18 +41,9 @@ public class App {
         kernelService.persist(kernel2);
         kernelService.persist(kernel3);
 
-        //System.out.println(kernelService.findById(new Long(3)).getId());
-
         defaultDesktopEnvironmentService.persist(defaultDesktopEnvironment);
 
         operationSystemService.persist(operationSystem1);
-
-        DefaultDesktopEnvironment defaultDesktopEnvironmentTest = defaultDesktopEnvironmentService.findById(new Long(1));
-        try {
-            System.out.println(new ObjectToJsonService().convertObjectToJson(defaultDesktopEnvironmentTest));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
     }
 
 }

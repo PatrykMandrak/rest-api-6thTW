@@ -26,7 +26,6 @@ public class ApiServlet extends HttpServlet {
         String uri = request.getRequestURI();
         List<String> splittedUri = getFixedSplittedUri(uri);
         String apiKey = splittedUri.get(0); // apiKEY
-        String element = splittedUri.get(1); // elementTYPE
 
         String stringResponse;
         if (checkIfValidKey(apiKey)) {
@@ -48,7 +47,6 @@ public class ApiServlet extends HttpServlet {
         String uri = request.getRequestURI();
         List<String> splittedUri = getFixedSplittedUri(uri);
         String apiKey = splittedUri.get(0); // apiKEY
-        String element = splittedUri.get(1); // elementTYPE
 
         String stringResponse;
         if (checkIfValidKey(apiKey)) {
@@ -81,10 +79,38 @@ public class ApiServlet extends HttpServlet {
 
         System.out.println(uri);
         response.getWriter().write(stringResponse);
+
+
+    }
+
+    protected void doDelete(HttpServletRequest request,
+                            HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String uri = request.getRequestURI();
+        List<String> splittedUri = getFixedSplittedUri(uri);
+        String apiKey = splittedUri.get(0);
+
+        String stringResponse;
+        if (checkIfValidKey(apiKey)) {
+            stringResponse = deleteEntity(splittedUri, request);
+        } else {
+            stringResponse = "Invalid Uri";
+        }
+
+        System.out.println(uri);
+        response.getWriter().write(stringResponse);
     }
 
     private boolean checkIfValidKey(String key) {
         return true;
+    }
+
+    private List<String> getFixedSplittedUri(String uri) {
+        List<String> fixedUriList = new LinkedList<String>(Arrays.asList(uri.split("/")));
+        fixedUriList.remove(0); // ""
+        fixedUriList.remove(0); // "api"
+        return fixedUriList;
     }
 
     private String getEntityString(List<String> splittedUri) {
@@ -143,10 +169,21 @@ public class ApiServlet extends HttpServlet {
         return "invalidElementProvided";
     }
 
-    private List<String> getFixedSplittedUri(String uri) {
-        List<String> fixedUriList = new LinkedList<String>(Arrays.asList(uri.split("/")));
-        fixedUriList.remove(0); // ""
-        fixedUriList.remove(0); // "api"
-        return fixedUriList;
+
+    private String deleteEntity(List<String> splittedUri, HttpServletRequest request) {
+        String elementTypeString = splittedUri.get(1);
+
+        switch (elementTypeString) {
+            case "operationSystems":
+                return operationSystemService.deleteOperationSystem(request);
+            case "kernels":
+                return kernelService.deleteKernel(request);
+            case "kernelTypes":
+                return kernelTypeService.deleteKernelType(request);
+            case "defaultDesktopEnvironments":
+                return defaultDesktopEnvironmentService.deleteDesktopEnvironment(request);
+        }
+
+        return "no such case";
     }
 }
