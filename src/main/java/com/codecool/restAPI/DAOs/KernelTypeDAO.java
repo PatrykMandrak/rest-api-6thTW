@@ -67,9 +67,6 @@ public class KernelTypeDAO implements IDAO<KernelType, Long>{
         getCurrentSession().merge(entity);
     }
 
-    public boolean checkIfExistById(Long id) {
-        return findById(id) != null;
-    }
 
     public KernelType findById(Long id) {
         KernelType kernelType = (KernelType) getCurrentSession().get(KernelType.class, id);

@@ -53,6 +53,10 @@ public class DefaultDesktopEnvironmentService {
         defaultDesktopEnvironmentDAO.closeCurrentSessionWithTransaction();
     }
 
+    private boolean checkIfExistById(Long id) {
+        return findById(id) != null;
+    }
+
     public DefaultDesktopEnvironmentDAO operationSystemDAO() {
         return defaultDesktopEnvironmentDAO;
     }
@@ -83,6 +87,18 @@ public class DefaultDesktopEnvironmentService {
             e.printStackTrace();
 
             return "Post doesn't work:\n\n" + e.toString();
+        }
+    }
+
+    public String deleteDesktopEnvironment(HttpServletRequest request) {
+        Long desktopEnvironmentId = Long.parseLong(request.getParameter("id"));
+
+        if (checkIfExistById(desktopEnvironmentId)) {
+            delete(desktopEnvironmentId);
+
+            return "Delete works";
+        } else {
+            return "Wrong id parameter. Check operation system id that You want to delete";
         }
     }
 }

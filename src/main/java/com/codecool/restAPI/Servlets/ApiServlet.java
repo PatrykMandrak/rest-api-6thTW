@@ -59,6 +59,25 @@ public class ApiServlet extends HttpServlet {
 
     }
 
+    protected void doDelete(HttpServletRequest request,
+                            HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String uri = request.getRequestURI();
+        List<String> splittedUri = getFixedSplittedUri(uri);
+        String apiKey = splittedUri.get(0);
+
+        String stringResponse;
+        if (checkIfValiKey(apiKey)) {
+            stringResponse = deleteEntity(splittedUri, request);
+        } else {
+            stringResponse = "Invalid Uri";
+        }
+
+        System.out.println(uri);
+        response.getWriter().write(stringResponse);
+    }
+
     private boolean checkIfValiKey(String key) {
         return true;
     }
@@ -104,6 +123,23 @@ public class ApiServlet extends HttpServlet {
                 return kernelTypeService.addNewKernelType(request);
             case "defaultDesktopEnvironments":
                 return defaultDesktopEnvironmentService.addNewDefaultDesktopEnvironments(request);
+        }
+
+        return "no such case";
+    }
+
+    private String deleteEntity(List<String> splittedUri, HttpServletRequest request) {
+        String elementTypeString = splittedUri.get(1);
+
+        switch (elementTypeString) {
+            case "operationSystems":
+                return operationSystemService.deleteOperationSystem(request);
+            case "kernels":
+                return kernelService.deleteKernel(request);
+            case "kernelTypes":
+                return kernelTypeService.deleteKernelType(request);
+            case "defaultDesktopEnvironments":
+                return defaultDesktopEnvironmentService.deleteDesktopEnvironment(request);
         }
 
         return "no such case";

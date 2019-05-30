@@ -57,6 +57,10 @@ public class OperationSystemService {
         operationSystemDAO.closeCurrentSessionWithTransaction();
     }
 
+    private boolean checkIfExistById(Long id) {
+        return findById(id) != null;
+    }
+
     public String getOperationSystemAsJson(List<String> splittedUri) throws JsonProcessingException {
         ObjectToJsonService objectToJsonService = new ObjectToJsonService();
 
@@ -90,6 +94,18 @@ public class OperationSystemService {
             System.out.println(e.toString());
 
             return "Post doesn't work:\n\n" + e.toString();
+        }
+    }
+
+    public String deleteOperationSystem(HttpServletRequest request) {
+        Long operationSystemId = Long.parseLong(request.getParameter("id"));
+
+        if (checkIfExistById(operationSystemId)) {
+            delete(operationSystemId);
+
+            return "Delete works";
+        } else {
+            return "Wrong id parameter. Check operation system id that You want to delete";
         }
     }
 }

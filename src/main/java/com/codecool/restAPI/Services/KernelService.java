@@ -56,6 +56,10 @@ public class KernelService {
         kernelDAO.closeCurrentSessionWithTransaction();
     }
 
+    private boolean checkIfExistById(Long id) {
+        return findById(id) != null;
+    }
+
     public KernelDAO kernelDAO() {
         return kernelDAO;
     }
@@ -91,6 +95,18 @@ public class KernelService {
             e.printStackTrace();
 
             return "Post doesn't work:\n\n" + e.toString();
+        }
+    }
+
+    public String deleteKernel(HttpServletRequest request) {
+        Long kernelId = Long.parseLong(request.getParameter("id"));
+
+        if (checkIfExistById(kernelId)) {
+            delete(kernelId);
+
+            return "Delete works";
+        } else {
+            return "Wrong id parameter. Check operation system id that You want to delete";
         }
     }
 }

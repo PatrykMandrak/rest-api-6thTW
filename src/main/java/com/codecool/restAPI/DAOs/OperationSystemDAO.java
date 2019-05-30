@@ -64,10 +64,6 @@ public class OperationSystemDAO implements IDAO<OperationSystem, Long>{
         getCurrentSession().merge(entity);
     }
 
-    public boolean checkIfExistById(Long id) {
-        return findById(id) != null;
-    }
-
     public OperationSystem findById(Long id) {
         OperationSystem operationSystem = (OperationSystem) getCurrentSession().get(OperationSystem.class, id);
         return operationSystem;
