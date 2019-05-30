@@ -64,6 +64,10 @@ public class DefaultDesktopEnvironmentDAO {
         getCurrentSession().merge(entity);
     }
 
+    public boolean checkIfExistById(Long id) {
+        return findById(id) != null;
+    }
+
 
     public DefaultDesktopEnvironment findById(Long id) {
         DefaultDesktopEnvironment defaultDesktopEnvironment = (DefaultDesktopEnvironment) getCurrentSession().get(DefaultDesktopEnvironment.class, id);

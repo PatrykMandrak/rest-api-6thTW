@@ -4,6 +4,7 @@ import com.codecool.restAPI.DAOs.KernelDAO;
 import com.codecool.restAPI.Models.Kernel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class KernelService {
@@ -61,13 +62,17 @@ public class KernelService {
         ObjectToJsonService objectToJsonService = new ObjectToJsonService();
 
         if (splittedUri.size() == 2) {
-            List<Kernel> operationSystemList = findAll();
-            return objectToJsonService.convertObjectToJson(operationSystemList);
+            List<Kernel> kernelList = findAll();
+            return objectToJsonService.convertObjectToJson(kernelList);
         } else if (splittedUri.size() == 3) {
-            Kernel operationSystem = findById(Long.getLong(splittedUri.get(3)));
-            return objectToJsonService.convertObjectToJson(operationSystem);
+            Kernel kernel = findById(Long.getLong(splittedUri.get(3)));
+            return objectToJsonService.convertObjectToJson(kernel);
         } else {
             return "Your URL is too creazy brooooooo ";
         }
+    }
+
+    public String addNewKernel(HttpServletRequest request) {
+        return null;
     }
 }

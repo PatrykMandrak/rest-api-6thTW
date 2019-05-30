@@ -46,6 +46,8 @@ public class App {
         kernelService.persist(kernel2);
         kernelService.persist(kernel3);
 
+        //System.out.println(kernelService.findById(new Long(3)).getId());
+
         defaultDesktopEnvironmentService.persist(defaultDesktopEnvironment);
 
         operationSystemService.persist(operationSystem1);

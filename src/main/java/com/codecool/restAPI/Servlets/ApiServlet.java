@@ -39,12 +39,27 @@ public class ApiServlet extends HttpServlet {
         response.getWriter().write(stringResponse);
     }
 
-/*    protected void doPost(HttpServletRequest request,
+    protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
             throws ServletException, IOException {
 
+        String uri = request.getRequestURI();
+        List<String> splittedUri = getFixedSplittedUri(uri);
+        String apiKey = splittedUri.get(0); // apiKEY
+        String element = splittedUri.get(1); // elementTYPE
 
-    }*/
+        String stringResponse;
+        if (checkIfValiKey(apiKey)) {
+            stringResponse = addNewEntity(splittedUri, request);
+        } else {
+            stringResponse = "Invalid Uri";
+        }
+
+        System.out.println(uri);
+        response.getWriter().write(stringResponse);
+
+
+    }
 
     private boolean checkIfValiKey(String key) {
         return true;
@@ -77,5 +92,22 @@ public class ApiServlet extends HttpServlet {
         }
 
         return "invalidElementProvided";
+    }
+
+    private String addNewEntity(List<String> splittedUri, HttpServletRequest request) {
+        String elementTypeString = splittedUri.get(1);
+
+        switch (elementTypeString) {
+            case "operationSystems":
+                return operationSystemService.addNewOperationSystem(request);
+            case "kernels":
+                return kernelService.addNewKernel(request);
+            case "kernelTypes":
+                return kernelTypeService.addNewKernelType(request);
+            case "defaultDesktopEnvironments":
+                return defaultDesktopEnvironmentService.addNewDefaultDesktopEnvironments(request);
+        }
+
+        return "no such case";
     }
 }

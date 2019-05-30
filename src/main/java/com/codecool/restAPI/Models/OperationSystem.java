@@ -71,5 +71,6 @@ public class OperationSystem {
 
     public void setDefaultDesktopEnvironment(DefaultDesktopEnvironment defaultDesktopEnvironment) {
         this.defaultDesktopEnvironment = defaultDesktopEnvironment;
+
     }
 }

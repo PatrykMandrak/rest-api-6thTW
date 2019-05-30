@@ -4,6 +4,7 @@ import com.codecool.restAPI.DAOs.DefaultDesktopEnvironmentDAO;
 import com.codecool.restAPI.Models.DefaultDesktopEnvironment;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class DefaultDesktopEnvironmentService {
@@ -60,13 +61,17 @@ public class DefaultDesktopEnvironmentService {
         ObjectToJsonService objectToJsonService = new ObjectToJsonService();
 
         if (splittedUri.size() == 2) {
-            List<DefaultDesktopEnvironment> operationSystemList = findAll();
-            return objectToJsonService.convertObjectToJson(operationSystemList);
+            List<DefaultDesktopEnvironment> defaultDesktopEnvironmentList = findAll();
+            return objectToJsonService.convertObjectToJson(defaultDesktopEnvironmentList);
         } else if (splittedUri.size() == 3) {
-            DefaultDesktopEnvironment operationSystem = findById(Long.getLong(splittedUri.get(3)));
-            return objectToJsonService.convertObjectToJson(operationSystem);
+            DefaultDesktopEnvironment defaultDesktopEnvironment = findById(Long.getLong(splittedUri.get(3)));
+            return objectToJsonService.convertObjectToJson(defaultDesktopEnvironment);
         } else {
             return "Your URL is too creazy brooooooo ";
         }
+    }
+
+    public String addNewDefaultDesktopEnvironments(HttpServletRequest request) {
+        return null;
     }
 }
