@@ -53,10 +53,6 @@ public class KernelTypeService {
         kernelTypeDAO.closeCurrentSessionWithTransaction();
     }
 
-    private boolean checkIfExistById(Long id) {
-        return findById(id) != null;
-    }
-
     public KernelTypeDAO kernelTypeDAO() {
         return kernelTypeDAO;
     }
@@ -102,5 +98,9 @@ public class KernelTypeService {
         } else {
             return "Wrong id parameter. Check operation system id that You want to delete";
         }
+    }
+
+    private boolean checkIfExistById(Long id) {
+        return findById(id) != null;
     }
 }

@@ -1,17 +1,14 @@
 package com.codecool.restAPI.DAOs;
 
-import com.codecool.restAPI.Models.Kernel;
 import com.codecool.restAPI.Models.KernelType;
-import com.codecool.restAPI.Models.OperationSystem;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
-public class KernelTypeDAO implements IDAO<KernelType, Long>{
+public class KernelTypeDAO implements IDAO<KernelType, Long> {
     private Session currentSession;
 
     private Transaction currentTransaction;

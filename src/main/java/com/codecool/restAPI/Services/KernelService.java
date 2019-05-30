@@ -56,10 +56,6 @@ public class KernelService {
         kernelDAO.closeCurrentSessionWithTransaction();
     }
 
-    private boolean checkIfExistById(Long id) {
-        return findById(id) != null;
-    }
-
     public KernelDAO kernelDAO() {
         return kernelDAO;
     }
@@ -108,5 +104,9 @@ public class KernelService {
         } else {
             return "Wrong id parameter. Check operation system id that You want to delete";
         }
+    }
+
+    private boolean checkIfExistById(Long id) {
+        return findById(id) != null;
     }
 }
