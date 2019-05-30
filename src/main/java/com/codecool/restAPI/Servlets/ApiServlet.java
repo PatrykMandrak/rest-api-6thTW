@@ -25,7 +25,6 @@ public class ApiServlet extends HttpServlet {
         String uri = request.getRequestURI();
         List<String> splittedUri = getFixedSplittedUri(uri);
         String apiKey = splittedUri.get(0); // apiKEY
-        String element = splittedUri.get(1); // elementTYPE
 
         String stringResponse;
         if (checkIfValiKey(apiKey)) {
@@ -46,7 +45,6 @@ public class ApiServlet extends HttpServlet {
         String uri = request.getRequestURI();
         List<String> splittedUri = getFixedSplittedUri(uri);
         String apiKey = splittedUri.get(0); // apiKEY
-        String element = splittedUri.get(1); // elementTYPE
 
         String stringResponse;
         if (checkIfValiKey(apiKey)) {

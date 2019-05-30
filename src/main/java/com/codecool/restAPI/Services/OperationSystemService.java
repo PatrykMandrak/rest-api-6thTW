@@ -92,8 +92,8 @@ public class OperationSystemService {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.toString());
-        }
 
-        return "Post doesn't work";
+            return "Post doesn't work:\n\n" + e.toString();
+        }
     }
 }
