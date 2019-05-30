@@ -72,6 +72,17 @@ public class DefaultDesktopEnvironmentService {
     }
 
     public String addNewDefaultDesktopEnvironments(HttpServletRequest request) {
-        return null;
+        try {
+            String desktopEnviromentName = request.getParameter("name");
+
+            DefaultDesktopEnvironment newDefaultDesktopEnvironment = new DefaultDesktopEnvironment(desktopEnviromentName);
+            persist(newDefaultDesktopEnvironment);
+
+            return "Post works";
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return "Post doesn't work:\n\n" + e.toString();
+        }
     }
 }
