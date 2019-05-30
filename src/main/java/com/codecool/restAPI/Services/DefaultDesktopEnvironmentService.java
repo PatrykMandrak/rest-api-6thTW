@@ -64,10 +64,10 @@ public class DefaultDesktopEnvironmentService {
             List<DefaultDesktopEnvironment> defaultDesktopEnvironmentList = findAll();
             return objectToJsonService.convertObjectToJson(defaultDesktopEnvironmentList);
         } else if (splittedUri.size() == 3) {
-            DefaultDesktopEnvironment defaultDesktopEnvironment = findById(Long.getLong(splittedUri.get(3)));
+            DefaultDesktopEnvironment defaultDesktopEnvironment = findById(Long.parseLong(splittedUri.get(2)));
             return objectToJsonService.convertObjectToJson(defaultDesktopEnvironment);
         } else {
-            return "Your URL is too creazy brooooooo ";
+            return "Wrong URI";
         }
     }
 
