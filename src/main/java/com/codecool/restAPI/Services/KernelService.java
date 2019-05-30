@@ -2,6 +2,7 @@ package com.codecool.restAPI.Services;
 
 import com.codecool.restAPI.DAOs.KernelDAO;
 import com.codecool.restAPI.Models.Kernel;
+import com.codecool.restAPI.Models.KernelType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import java.util.List;
 public class KernelService {
 
     private static KernelDAO kernelDAO;
+    private KernelTypeService kernelTypeService = new KernelTypeService();
 
     public KernelService() {
         kernelDAO = new KernelDAO();
@@ -76,7 +78,29 @@ public class KernelService {
         return null;
     }
 
-    public String udateKernel(HttpServletRequest request) {
-        return null;
+    public String updateKernel(HttpServletRequest request) {
+        try {
+            Long id = Long.parseLong(request.getParameter("id"));
+            Long kernelTypeId = Long.parseLong(request.getParameter("kernelTypeId"));
+            String name = request.getParameter("name");
+            String description = request.getParameter("description");
+
+            Kernel kernel = findById(id);
+            KernelType kernelType = kernelTypeService.findById(kernelTypeId);
+
+            kernel.setKernelType(kernelType);
+            kernel.setName(name);
+            kernel.setDescription(description);
+
+            update(kernel);
+
+            return "UPDATED"
+                    ;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.toString());
+        }
+
+        return "ERROR";
     }
 }

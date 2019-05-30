@@ -76,6 +76,19 @@ public class DefaultDesktopEnvironmentService {
     }
 
     public String udateDefaultDesktopEnvironments(HttpServletRequest request) {
-        return null;
+        try {
+            Long id = Long.parseLong(request.getParameter("id"));
+            String name = request.getParameter("name");
+
+            DefaultDesktopEnvironment defaultDesktopEnvironment = findById(id);
+            defaultDesktopEnvironment.setName(name);
+
+            update(defaultDesktopEnvironment);
+
+            return "UPDATED";
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return "ERROR";
     }
 }

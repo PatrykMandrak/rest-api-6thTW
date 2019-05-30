@@ -133,9 +133,9 @@ public class ApiServlet extends HttpServlet {
             case "operationSystems":
                 return operationSystemService.updateOperationSystem(request);
             case "kernels":
-                return kernelService.udateKernel(request);
+                return kernelService.updateKernel(request);
             case "kernelTypes":
-                return kernelTypeService.udateKernelType(request);
+                return kernelTypeService.updateKernelType(request);
             case "defaultDesktopEnvironments":
                 return defaultDesktopEnvironmentService.udateDefaultDesktopEnvironments(request);
         }

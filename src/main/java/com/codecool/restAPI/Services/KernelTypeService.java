@@ -75,7 +75,23 @@ public class KernelTypeService {
         return null;
     }
 
-    public String udateKernelType(HttpServletRequest request) {
-        return null;
+    public String updateKernelType(HttpServletRequest request) {
+        try {
+            Long id = Long.parseLong(request.getParameter("id"));
+            String name = request.getParameter("name");
+            String description = request.getParameter("description");
+
+
+            KernelType kernelType = findById(id);
+            kernelType.setName(name);
+            kernelType.setDescription(description);
+
+            update(kernelType);
+
+            return "UPDATED";
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return "ERROR";
     }
 }
