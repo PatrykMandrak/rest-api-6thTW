@@ -8,6 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 public class OperationSystemService {
     private static OperationSystemDAO operationSystemDAO = new OperationSystemDAO();
@@ -57,14 +58,14 @@ public class OperationSystemService {
         operationSystemDAO.closeCurrentSessionWithTransaction();
     }
 
-    public String getOperationSystemAsJson(List<String> splittedUri) throws JsonProcessingException {
+    public String getOperationSystemAsJson(Map<String, String> uriMap) throws JsonProcessingException {
         ObjectToJsonService objectToJsonService = new ObjectToJsonService();
 
-        if (splittedUri.size() == 2) {
+        if (!uriMap.containsKey("id")) {
             List<OperationSystem> operationSystemList = findAll();
             return objectToJsonService.convertObjectToJson(operationSystemList);
-        } else if (splittedUri.size() == 3) {
-            OperationSystem operationSystem = findById(Long.parseLong(splittedUri.get(2)));
+        } else if (uriMap.size() == 3) {
+            OperationSystem operationSystem = findById(Long.parseLong(uriMap.get("id")));
             return objectToJsonService.convertObjectToJson(operationSystem);
         } else {
             return "Wrong URI";

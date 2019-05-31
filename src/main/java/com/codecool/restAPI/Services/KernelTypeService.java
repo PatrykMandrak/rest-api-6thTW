@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 public class KernelTypeService {
     private static KernelTypeDAO kernelTypeDAO;
@@ -57,17 +58,15 @@ public class KernelTypeService {
         return kernelTypeDAO;
     }
 
-    public String getKernelTypeAsJson(List<String> splittedUri) throws JsonProcessingException {
+    public String getKernelTypeAsJson(Map<String, String> uriMap) throws JsonProcessingException {
         ObjectToJsonService objectToJsonService = new ObjectToJsonService();
 
-        if (splittedUri.size() == 2) {
+        if (!uriMap.containsKey("id")) {
             List<KernelType> kernelTypeList = findAll();
             return objectToJsonService.convertObjectToJson(kernelTypeList);
-        } else if (splittedUri.size() == 3) {
-            KernelType kernelType = findById(Long.parseLong(splittedUri.get(2)));
-            return objectToJsonService.convertObjectToJson(kernelType);
         } else {
-            return "Your URL is too creazy brooooooo ";
+            KernelType kernelType = findById(Long.parseLong(uriMap.get("id")));
+            return objectToJsonService.convertObjectToJson(kernelType);
         }
     }
 

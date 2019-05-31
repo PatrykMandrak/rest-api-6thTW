@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class ApiServlet extends HttpServlet {
     private OperationSystemService operationSystemService = new OperationSystemService();
@@ -25,12 +23,12 @@ public class ApiServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String uri = request.getRequestURI();
-        List<String> splittedUri = getFixedSplittedUri(uri);
-        String apiKey = splittedUri.get(0); // apiKEY
+        Map<String, String> uriMap = mapUriString(uri);
+        String apiKey = uriMap.get("apiKey"); // apiKEY
 
         String stringResponse;
         if (checkIfValidKey(apiKey)) {
-            stringResponse = getEntityString(splittedUri);
+            stringResponse = getEntityString(uriMap);
             ///
         } else {
             stringResponse = "Invalid Key";
@@ -46,12 +44,12 @@ public class ApiServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String uri = request.getRequestURI();
-        List<String> splittedUri = getFixedSplittedUri(uri);
-        String apiKey = splittedUri.get(0); // apiKEY
+        Map<String, String> uriMap = mapUriString(uri);
+        String apiKey = uriMap.get("apiKey"); // apiKEY
 
         String stringResponse;
         if (checkIfValidKey(apiKey)) {
-            stringResponse = addNewEntity(splittedUri, request);
+            stringResponse = addNewEntity(uriMap, request);
         } else {
             stringResponse = "Invalid Key";
         }
@@ -68,12 +66,12 @@ public class ApiServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String uri = request.getRequestURI();
-        List<String> splittedUri = getFixedSplittedUri(uri);
-        String apiKey = splittedUri.get(0); // apiKEY
+        Map<String, String> uriMap = mapUriString(uri);
+        String apiKey = uriMap.get("apiKey"); // apiKEY
 
         String stringResponse;
         if(checkIfValidKey(apiKey)) {
-            stringResponse = updateEntity(splittedUri, request);
+            stringResponse = updateEntity(uriMap, request);
         } else {
             stringResponse = "Invalid Key";
         }
@@ -89,12 +87,12 @@ public class ApiServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String uri = request.getRequestURI();
-        List<String> splittedUri = getFixedSplittedUri(uri);
-        String apiKey = splittedUri.get(0);
+        Map<String, String> uriMap = mapUriString(uri);
+        String apiKey = uriMap.get("apiKey");
 
         String stringResponse;
         if (checkIfValidKey(apiKey)) {
-            stringResponse = deleteEntity(splittedUri, request);
+            stringResponse = deleteEntity(uriMap, request);
         } else {
             stringResponse = "Invalid Uri";
         }
@@ -107,26 +105,37 @@ public class ApiServlet extends HttpServlet {
         return apiKeyService.checkIfKeyExists(key);
     }
 
-    private List<String> getFixedSplittedUri(String uri) {
-        List<String> fixedUriList = new LinkedList<String>(Arrays.asList(uri.split("/")));
-        fixedUriList.remove(0); // ""
-        fixedUriList.remove(0); // "api"
-        return fixedUriList;
+    private Map<String, String> mapUriString(String uri) {
+        List<String> uriList = new LinkedList<String>(Arrays.asList(uri.split("/")));
+        int notNeededInformationIndex = 0;
+        uriList.remove(notNeededInformationIndex); // removing empty string
+        uriList.remove(notNeededInformationIndex); // removing "api" string
+
+        Map<String, String> uriMap = new HashMap<>();
+        int apiKeyIndex = 0;
+        int elementTypeIndex = 1;
+        int optionalElementIdIndex = 2;
+        uriMap.put("apiKey", uriList.get(apiKeyIndex));
+        uriMap.put("elementType", uriList.get(elementTypeIndex));
+        if(uriList.size()==3) {
+            uriMap.put("id", uriList.get(optionalElementIdIndex));
+        }
+        return uriMap;
     }
 
-    private String getEntityString(List<String> splittedUri) {
-        String elementTypeString = splittedUri.get(1);
+    private String getEntityString(Map<String, String> uriMap) {
+        String elementTypeString = uriMap.get("elementType");
         try {
             switch (elementTypeString) {
                 case "operationSystems":
-                    return operationSystemService.getOperationSystemAsJson(splittedUri);
+                    return operationSystemService.getOperationSystemAsJson(uriMap);
                 case "kernels":
                     System.out.println("we are in case KERNELS");
-                    return kernelService.getKernelAsJson(splittedUri);
+                    return kernelService.getKernelAsJson(uriMap);
                 case "kernelTypes":
-                    return kernelTypeService.getKernelTypeAsJson(splittedUri);
+                    return kernelTypeService.getKernelTypeAsJson(uriMap);
                 case "defaultDesktopEnvironments":
-                    return defaultDesktopEnvironmentService.getDefaultDekstopEnvironmentAsJson(splittedUri);
+                    return defaultDesktopEnvironmentService.getDefaultDekstopEnvironmentAsJson(uriMap);
             }
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -136,8 +145,8 @@ public class ApiServlet extends HttpServlet {
         return "invalidElementProvided";
     }
 
-    private String addNewEntity(List<String> splittedUri, HttpServletRequest request) {
-        String elementTypeString = splittedUri.get(1);
+    private String addNewEntity(Map<String, String> uriMap, HttpServletRequest request) {
+        String elementTypeString = uriMap.get("elementType");
 
         switch (elementTypeString) {
             case "operationSystems":
@@ -153,8 +162,8 @@ public class ApiServlet extends HttpServlet {
         return "invalidElementProvided";
     }
 
-    private String updateEntity(List<String> splittedUri, HttpServletRequest request) {
-        String elementTypeString = splittedUri.get(1);
+    private String updateEntity(Map<String, String> uriMap, HttpServletRequest request) {
+        String elementTypeString = uriMap.get("elementType");
 
         switch (elementTypeString) {
             case "operationSystems":
@@ -171,8 +180,8 @@ public class ApiServlet extends HttpServlet {
     }
 
 
-    private String deleteEntity(List<String> splittedUri, HttpServletRequest request) {
-        String elementTypeString = splittedUri.get(1);
+    private String deleteEntity(Map<String, String> uriMap, HttpServletRequest request) {
+        String elementTypeString = uriMap.get("elementType");
 
         switch (elementTypeString) {
             case "operationSystems":

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 public class DefaultDesktopEnvironmentService {
     private static DefaultDesktopEnvironmentDAO defaultDesktopEnvironmentDAO;
@@ -57,17 +58,15 @@ public class DefaultDesktopEnvironmentService {
         return defaultDesktopEnvironmentDAO;
     }
 
-    public String getDefaultDekstopEnvironmentAsJson(List<String> splittedUri) throws JsonProcessingException {
+    public String getDefaultDekstopEnvironmentAsJson(Map<String, String> uriMap) throws JsonProcessingException {
         ObjectToJsonService objectToJsonService = new ObjectToJsonService();
 
-        if (splittedUri.size() == 2) {
+        if (!uriMap.containsKey("id")) {
             List<DefaultDesktopEnvironment> defaultDesktopEnvironmentList = findAll();
             return objectToJsonService.convertObjectToJson(defaultDesktopEnvironmentList);
-        } else if (splittedUri.size() == 3) {
-            DefaultDesktopEnvironment defaultDesktopEnvironment = findById(Long.parseLong(splittedUri.get(2)));
-            return objectToJsonService.convertObjectToJson(defaultDesktopEnvironment);
         } else {
-            return "Wrong URI";
+            DefaultDesktopEnvironment defaultDesktopEnvironment = findById(Long.parseLong(uriMap.get("id")));
+            return objectToJsonService.convertObjectToJson(defaultDesktopEnvironment);
         }
     }
 

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 public class KernelService {
 
@@ -60,17 +61,15 @@ public class KernelService {
         return kernelDAO;
     }
 
-    public String getKernelAsJson(List<String> splittedUri) throws JsonProcessingException {
+    public String getKernelAsJson(Map<String, String> uriMap) throws JsonProcessingException {
         ObjectToJsonService objectToJsonService = new ObjectToJsonService();
 
-        if (splittedUri.size() == 2) {
+        if (!uriMap.containsKey("id")) {
             List<Kernel> kernelList = findAll();
             return objectToJsonService.convertObjectToJson(kernelList);
-        } else if (splittedUri.size() == 3) {
-            Kernel kernel = findById(Long.parseLong(splittedUri.get(2)));
-            return objectToJsonService.convertObjectToJson(kernel);
         } else {
-            return "Your URL is too creazy brooooooo ";
+            Kernel kernel = findById(Long.parseLong(uriMap.get("id")));
+            return objectToJsonService.convertObjectToJson(kernel);
         }
     }
 
