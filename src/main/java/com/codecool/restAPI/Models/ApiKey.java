@@ -13,6 +13,14 @@ public class ApiKey {
 
     private String key;
 
+    public ApiKey(String key) {
+        this.key = key;
+    }
+
+    public ApiKey() {
+        //
+    }
+
     public Long getId() {
         return id;
     }

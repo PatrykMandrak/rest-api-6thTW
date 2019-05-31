@@ -17,6 +17,7 @@ public class ApiServlet extends HttpServlet {
     private DefaultDesktopEnvironmentService defaultDesktopEnvironmentService = new DefaultDesktopEnvironmentService();
     private KernelService kernelService = new KernelService();
     private KernelTypeService kernelTypeService = new KernelTypeService();
+    private ApiKeyService apiKeyService = new ApiKeyService();
 
     @Override
     protected void doGet(HttpServletRequest request,
@@ -103,7 +104,7 @@ public class ApiServlet extends HttpServlet {
     }
 
     private boolean checkIfValidKey(String key) {
-        return true;
+        return apiKeyService.checkIfKeyExists(key);
     }
 
     private List<String> getFixedSplittedUri(String uri) {
