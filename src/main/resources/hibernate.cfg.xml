@@ -7,8 +7,8 @@
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/geekRestApiDB</property>
-        <property name="hibernate.connection.username">milkopis</property>
-        <property name="hibernate.connection.password">Patryk342351</property>
+        <property name="hibernate.connection.username">yasha</property>
+        <property name="hibernate.connection.password">password123</property>
         <property name="hibernate.connection.pool_size">1</property>
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
@@ -18,5 +18,6 @@
         <mapping class="com.codecool.restAPI.Models.KernelType"/>
         <mapping class="com.codecool.restAPI.Models.OperationSystem"/>
         <mapping class="com.codecool.restAPI.Models.DefaultDesktopEnvironment"/>
+        <mapping class="com.codecool.restAPI.Models.ApiKey"/>
     </session-factory>
 </hibernate-configuration>

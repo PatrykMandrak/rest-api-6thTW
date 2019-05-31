@@ -11,6 +11,7 @@
         <class>com.codecool.restAPI.Models.KernelType</class>
         <class>com.codecool.restAPI.Models.OperationSystem</class>
         <class>com.codecool.restAPI.Models.DefaultDesktopEnvironment</class>
+        <class>com.codecool.restAPI.Models.ApiKey</class>
 
 
         <properties>
@@ -26,8 +27,8 @@
 
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/geekRestApiDB"/>
-            <property name="javax.persistence.jdbc.user" value="milkopis"/>
-            <property name="javax.persistence.jdbc.password" value="Patryk342351"/>
+            <property name="javax.persistence.jdbc.user" value="yasha"/>
+            <property name="javax.persistence.jdbc.password" value="password123"/>
             <!--<property name="javax.persistence.sql-load-script-source" value="insert.sql"/>-->
         </properties>
     </persistence-unit>
