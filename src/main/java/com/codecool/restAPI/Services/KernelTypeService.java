@@ -64,7 +64,7 @@ public class KernelTypeService {
             List<KernelType> kernelTypeList = findAll();
             return objectToJsonService.convertObjectToJson(kernelTypeList);
         } else if (splittedUri.size() == 3) {
-            KernelType kernelType = findById(Long.getLong(splittedUri.get(3)));
+            KernelType kernelType = findById(Long.parseLong(splittedUri.get(2)));
             return objectToJsonService.convertObjectToJson(kernelType);
         } else {
             return "Your URL is too creazy brooooooo ";

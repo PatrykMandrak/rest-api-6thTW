@@ -34,7 +34,6 @@ public class KernelTypeDAO implements IDAO<KernelType, Long> {
     }
 
     private static SessionFactory getSessionFactory() {
-        // NEED FOR SPEEDFACTOR
         Configuration configuration = new Configuration();
         SessionFactory sessionFactory = configuration.configure().buildSessionFactory();
         return sessionFactory;

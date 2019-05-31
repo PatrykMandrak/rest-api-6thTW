@@ -18,7 +18,7 @@ public class OperationSystem {
     private String name;
 
     @ManyToOne
-    @JsonIgnoreProperties({"operationSystems"})
+    @JsonIgnoreProperties({"operationSystems", "kernelType"})
     private Kernel kernel;
 
     @ManyToOne

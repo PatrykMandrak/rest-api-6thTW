@@ -64,7 +64,7 @@ public class OperationSystemService {
             List<OperationSystem> operationSystemList = findAll();
             return objectToJsonService.convertObjectToJson(operationSystemList);
         } else if (splittedUri.size() == 3) {
-            OperationSystem operationSystem = findById(Long.getLong(splittedUri.get(3)));
+            OperationSystem operationSystem = findById(Long.parseLong(splittedUri.get(2)));
             return objectToJsonService.convertObjectToJson(operationSystem);
         } else {
             return "Wrong URI";
