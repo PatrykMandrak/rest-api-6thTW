@@ -18,7 +18,7 @@ public class ApiKey {
     }
 
     public ApiKey() {
-        //
+        // constructor for hibernate
     }
 
     public Long getId() {

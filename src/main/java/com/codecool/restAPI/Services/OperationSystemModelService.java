@@ -108,30 +108,30 @@ public class OperationSystemModelService implements IModelService<OperationSyste
             Long itemToUpdateId = Long.parseLong(request.getParameter("id"));
 
             Kernel kernel = null;
-            if(request.getParameter("kernelId") != null) {
+            if (request.getParameter("kernelId") != null) {
                 Long kernelId = Long.parseLong(request.getParameter("kernelId"));
                 kernel = kernelService.findById(kernelId);
             }
 
             DefaultDesktopEnvironment defaultDesktopEnvironment = null;
-            if(request.getParameter("desktopEnvironmentId") != null) {
+            if (request.getParameter("desktopEnvironmentId") != null) {
                 Long defaultDesktopEnvironmentId = Long.parseLong(request.getParameter("desktopEnvironmentId"));
                 defaultDesktopEnvironment = defaultDesktopEnvironmentService.findById(defaultDesktopEnvironmentId);
             }
 
             OperationSystem operationSystemToUpdate = findById(itemToUpdateId);
 
-            if(operationSystemName != null)
-            operationSystemToUpdate.setName(operationSystemName);
+            if (operationSystemName != null)
+                operationSystemToUpdate.setName(operationSystemName);
 
-            if(kernel != null)
-            operationSystemToUpdate.setKernel(kernel);
+            if (kernel != null)
+                operationSystemToUpdate.setKernel(kernel);
 
-            if(defaultDesktopEnvironment != null)
-            operationSystemToUpdate.setDefaultDesktopEnvironment(defaultDesktopEnvironment);
+            if (defaultDesktopEnvironment != null)
+                operationSystemToUpdate.setDefaultDesktopEnvironment(defaultDesktopEnvironment);
 
-            if(operationSystemToUpdate != null)
-            update(operationSystemToUpdate);
+            if (operationSystemToUpdate != null)
+                update(operationSystemToUpdate);
 
             return "UPDATED"
                     ;

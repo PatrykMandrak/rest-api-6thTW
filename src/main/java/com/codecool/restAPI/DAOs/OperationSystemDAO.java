@@ -8,7 +8,7 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
-public class OperationSystemDAO implements IDAO<OperationSystem, Long>{
+public class OperationSystemDAO implements IDAO<OperationSystem, Long> {
     private Session currentSession;
 
     private Transaction currentTransaction;
@@ -49,6 +49,7 @@ public class OperationSystemDAO implements IDAO<OperationSystem, Long>{
             delete(entity);
         }
     }
+
     public Session openCurrentSession() {
         currentSession = getSessionFactory().openSession();
         return currentSession;

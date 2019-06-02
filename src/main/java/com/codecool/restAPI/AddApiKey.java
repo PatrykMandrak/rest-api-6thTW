@@ -17,11 +17,11 @@ public class AddApiKey {
         String userInput;
 
         boolean addNew = true;
-        while(addNew) {
+        while (addNew) {
             System.out.print("Enter new api key: ");
             userInput = scanner.next();
             addNewKey(userInput);
-            if(!addAnother()) {
+            if (!addAnother()) {
                 addNew = false;
             }
         }
@@ -32,18 +32,18 @@ public class AddApiKey {
         String userInput = "";
 
         boolean wrongChoice = true;
-        while(wrongChoice) {
+        while (wrongChoice) {
             System.out.print("Add another(y/n)?: ");
             userInput = scanner.next().toLowerCase();
             System.out.println();
-            if(userInput.equals("y") || userInput.equals("n")) {
+            if (userInput.equals("y") || userInput.equals("n")) {
                 wrongChoice = false;
             } else {
                 System.out.println("Answer only \"y\" or \"n\"");
             }
         }
 
-        if(userInput.equals("y")) {
+        if (userInput.equals("y")) {
             return true;
         } else {
             return false;

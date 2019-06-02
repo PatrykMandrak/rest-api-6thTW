@@ -118,15 +118,15 @@ public class KernelTypeModelService implements IModelService<KernelType> {
 
             KernelType kernelType = findById(id);
 
-            if(name != null)
-            kernelType.setName(name);
-            if(description != null)
-            kernelType.setDescription(description);
+            if (name != null)
+                kernelType.setName(name);
+            if (description != null)
+                kernelType.setDescription(description);
 
             update(kernelType);
 
             return "UPDATED";
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "ERROR";

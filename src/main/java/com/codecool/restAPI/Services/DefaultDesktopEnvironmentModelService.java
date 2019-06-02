@@ -115,13 +115,13 @@ public class DefaultDesktopEnvironmentModelService implements IModelService<Defa
 
             DefaultDesktopEnvironment defaultDesktopEnvironment = findById(id);
 
-            if(name != null)
-            defaultDesktopEnvironment.setName(name);
+            if (name != null)
+                defaultDesktopEnvironment.setName(name);
 
             update(defaultDesktopEnvironment);
 
             return "UPDATED";
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "ERROR";

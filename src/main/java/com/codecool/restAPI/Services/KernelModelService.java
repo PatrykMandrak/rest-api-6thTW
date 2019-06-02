@@ -121,7 +121,7 @@ public class KernelModelService implements IModelService<Kernel> {
             Long id = Long.parseLong(request.getParameter("id"));
 
             KernelType kernelType = null;
-            if(request.getParameter("kernelTypeId") != null) {
+            if (request.getParameter("kernelTypeId") != null) {
                 Long kernelTypeId = Long.parseLong(request.getParameter("kernelTypeId"));
                 kernelType = kernelTypeService.findById(kernelTypeId);
             }
@@ -132,17 +132,16 @@ public class KernelModelService implements IModelService<Kernel> {
             Kernel kernel = findById(id);
 
 
-            if(kernelType != null)
-            kernel.setKernelType(kernelType);
-            if(name != null)
-            kernel.setName(name);
-            if(description != null)
-            kernel.setDescription(description);
+            if (kernelType != null)
+                kernel.setKernelType(kernelType);
+            if (name != null)
+                kernel.setName(name);
+            if (description != null)
+                kernel.setDescription(description);
 
             update(kernel);
 
-            return "UPDATED"
-                    ;
+            return "UPDATED";
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.toString());

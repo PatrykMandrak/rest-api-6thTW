@@ -8,7 +8,7 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
-public class DefaultDesktopEnvironmentDAO implements IDAO<DefaultDesktopEnvironment, Long>{
+public class DefaultDesktopEnvironmentDAO implements IDAO<DefaultDesktopEnvironment, Long> {
     private Session currentSession;
 
     private Transaction currentTransaction;

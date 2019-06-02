@@ -9,7 +9,7 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
-public class ApiKeyDAO implements IDAO<ApiKey, Long>{
+public class ApiKeyDAO implements IDAO<ApiKey, Long> {
     private Session currentSession;
 
     private Transaction currentTransaction;
@@ -45,10 +45,11 @@ public class ApiKeyDAO implements IDAO<ApiKey, Long>{
     @Override
     public void deleteAll() {
         List<ApiKey> apiKeys = findAll();
-        for(ApiKey apikey: apiKeys) {
+        for (ApiKey apikey : apiKeys) {
             delete(apikey);
         }
     }
+
     public Session openCurrentSession() {
         currentSession = getSessionFactory().openSession();
         return currentSession;

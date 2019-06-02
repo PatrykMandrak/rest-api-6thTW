@@ -60,8 +60,8 @@ public class ApiKeyModelService implements IModelService<ApiKey> {
     public boolean checkIfKeyExists(String key) {
         List<ApiKey> apiKeys = findAll();
 
-        for(ApiKey currentApiKey: apiKeys) {
-            if(currentApiKey.getKey().equals(key)) return true;
+        for (ApiKey currentApiKey : apiKeys) {
+            if (currentApiKey.getKey().equals(key)) return true;
         }
         return false;
     }
