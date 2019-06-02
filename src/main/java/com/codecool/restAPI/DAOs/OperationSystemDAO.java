@@ -13,6 +13,41 @@ public class OperationSystemDAO implements IDAO<OperationSystem, Long>{
 
     private Transaction currentTransaction;
 
+    @Override
+    public void persist(OperationSystem entity) {
+        getCurrentSession().save(entity);
+    }
+
+    @Override
+    public void update(OperationSystem entity) {
+        getCurrentSession().merge(entity);
+    }
+
+    @Override
+    public OperationSystem findById(Long id) {
+        System.out.println(id);
+        OperationSystem operationSystem = (OperationSystem) getCurrentSession().get(OperationSystem.class, id);
+        return operationSystem;
+    }
+
+    @Override
+    public void delete(OperationSystem entity) {
+        getCurrentSession().delete(entity);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<OperationSystem> findAll() {
+        List<OperationSystem> operationSystems = (List<OperationSystem>) getCurrentSession().createQuery("from OperationSystem").list();
+        return operationSystems;
+    }
+
+    public void deleteAll() {
+        List<OperationSystem> entityList = findAll();
+        for (OperationSystem entity : entityList) {
+            delete(entity);
+        }
+    }
     public Session openCurrentSession() {
         currentSession = getSessionFactory().openSession();
         return currentSession;
@@ -55,34 +90,4 @@ public class OperationSystemDAO implements IDAO<OperationSystem, Long>{
         this.currentTransaction = currentTransaction;
     }
 
-    public void persist(OperationSystem entity) {
-        getCurrentSession().save(entity);
-    }
-
-    public void update(OperationSystem entity) {
-        getCurrentSession().merge(entity);
-    }
-
-    public OperationSystem findById(Long id) {
-        System.out.println(id);
-        OperationSystem operationSystem = (OperationSystem) getCurrentSession().get(OperationSystem.class, id);
-        return operationSystem;
-    }
-
-    public void delete(OperationSystem entity) {
-        getCurrentSession().delete(entity);
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<OperationSystem> findAll() {
-        List<OperationSystem> operationSystems = (List<OperationSystem>) getCurrentSession().createQuery("from OperationSystem").list();
-        return operationSystems;
-    }
-
-    public void deleteAll() {
-        List<OperationSystem> entityList = findAll();
-        for (OperationSystem entity : entityList) {
-            delete(entity);
-        }
-    }
 }

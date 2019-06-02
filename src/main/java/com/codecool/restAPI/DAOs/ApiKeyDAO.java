@@ -9,11 +9,46 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
-public class ApiKeyDAO {
+public class ApiKeyDAO implements IDAO<ApiKey, Long>{
     private Session currentSession;
 
     private Transaction currentTransaction;
 
+    @Override
+    public void persist(ApiKey entity) {
+        getCurrentSession().save(entity);
+    }
+
+    @Override
+    public void update(ApiKey entity) {
+        getCurrentSession().merge(entity);
+    }
+
+    @Override
+    public ApiKey findById(Long id) {
+        ApiKey apiKey = (ApiKey) getCurrentSession().get(ApiKey.class, id);
+        return apiKey;
+    }
+
+    @Override
+    public void delete(ApiKey entity) {
+        getCurrentSession().delete(entity);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<ApiKey> findAll() {
+        List<ApiKey> apiKeys = (List<ApiKey>) getCurrentSession().createQuery("from ApiKey").list();
+        return apiKeys;
+    }
+
+    @Override
+    public void deleteAll() {
+        List<ApiKey> apiKeys = findAll();
+        for(ApiKey apikey: apiKeys) {
+            delete(apikey);
+        }
+    }
     public Session openCurrentSession() {
         currentSession = getSessionFactory().openSession();
         return currentSession;
@@ -44,28 +79,5 @@ public class ApiKeyDAO {
         return currentSession;
     }
 
-    public void persist(ApiKey entity) {
-        getCurrentSession().save(entity);
-    }
-
-    public void update(ApiKey entity) {
-        getCurrentSession().merge(entity);
-    }
-
-
-    public ApiKey findById(Long id) {
-        ApiKey apiKey = (ApiKey) getCurrentSession().get(ApiKey.class, id);
-        return apiKey;
-    }
-
-    public void delete(ApiKey entity) {
-        getCurrentSession().delete(entity);
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<ApiKey> findAll() {
-        List<ApiKey> apiKeys = (List<ApiKey>) getCurrentSession().createQuery("from ApiKey").list();
-        return apiKeys;
-    }
 }
 

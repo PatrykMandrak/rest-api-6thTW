@@ -8,7 +8,7 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
-public class DefaultDesktopEnvironmentDAO {
+public class DefaultDesktopEnvironmentDAO implements IDAO<DefaultDesktopEnvironment, Long>{
     private Session currentSession;
 
     private Transaction currentTransaction;
@@ -55,29 +55,35 @@ public class DefaultDesktopEnvironmentDAO {
         this.currentTransaction = currentTransaction;
     }
 
+    @Override
     public void persist(DefaultDesktopEnvironment entity) {
         getCurrentSession().save(entity);
     }
 
+    @Override
     public void update(DefaultDesktopEnvironment entity) {
         getCurrentSession().merge(entity);
     }
 
+    @Override
     public DefaultDesktopEnvironment findById(Long id) {
         DefaultDesktopEnvironment defaultDesktopEnvironment = (DefaultDesktopEnvironment) getCurrentSession().get(DefaultDesktopEnvironment.class, id);
         return defaultDesktopEnvironment;
     }
 
+    @Override
     public void delete(DefaultDesktopEnvironment entity) {
         getCurrentSession().delete(entity);
     }
 
     @SuppressWarnings("unchecked")
+    @Override
     public List<DefaultDesktopEnvironment> findAll() {
         List<DefaultDesktopEnvironment> defaultDesktopEnvironments = (List<DefaultDesktopEnvironment>) getCurrentSession().createQuery("from DefaultDesktopEnvironment ").list();
         return defaultDesktopEnvironments;
     }
 
+    @Override
     public void deleteAll() {
         List<DefaultDesktopEnvironment> entityList = findAll();
         for (DefaultDesktopEnvironment entity : entityList) {
