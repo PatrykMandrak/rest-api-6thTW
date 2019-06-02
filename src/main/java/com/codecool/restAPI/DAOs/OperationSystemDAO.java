@@ -42,6 +42,7 @@ public class OperationSystemDAO implements IDAO<OperationSystem, Long>{
         return operationSystems;
     }
 
+    @Override
     public void deleteAll() {
         List<OperationSystem> entityList = findAll();
         for (OperationSystem entity : entityList) {

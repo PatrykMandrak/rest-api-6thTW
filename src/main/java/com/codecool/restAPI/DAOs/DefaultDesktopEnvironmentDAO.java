@@ -13,6 +13,42 @@ public class DefaultDesktopEnvironmentDAO implements IDAO<DefaultDesktopEnvironm
 
     private Transaction currentTransaction;
 
+    @Override
+    public void persist(DefaultDesktopEnvironment entity) {
+        getCurrentSession().save(entity);
+    }
+
+    @Override
+    public void update(DefaultDesktopEnvironment entity) {
+        getCurrentSession().merge(entity);
+    }
+
+    @Override
+    public DefaultDesktopEnvironment findById(Long id) {
+        DefaultDesktopEnvironment defaultDesktopEnvironment = (DefaultDesktopEnvironment) getCurrentSession().get(DefaultDesktopEnvironment.class, id);
+        return defaultDesktopEnvironment;
+    }
+
+    @Override
+    public void delete(DefaultDesktopEnvironment entity) {
+        getCurrentSession().delete(entity);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<DefaultDesktopEnvironment> findAll() {
+        List<DefaultDesktopEnvironment> defaultDesktopEnvironments = (List<DefaultDesktopEnvironment>) getCurrentSession().createQuery("from DefaultDesktopEnvironment ").list();
+        return defaultDesktopEnvironments;
+    }
+
+    @Override
+    public void deleteAll() {
+        List<DefaultDesktopEnvironment> entityList = findAll();
+        for (DefaultDesktopEnvironment entity : entityList) {
+            delete(entity);
+        }
+    }
+
     public Session openCurrentSession() {
         currentSession = getSessionFactory().openSession();
         return currentSession;
@@ -54,41 +90,4 @@ public class DefaultDesktopEnvironmentDAO implements IDAO<DefaultDesktopEnvironm
     public void setCurrentTransaction(Transaction currentTransaction) {
         this.currentTransaction = currentTransaction;
     }
-
-    @Override
-    public void persist(DefaultDesktopEnvironment entity) {
-        getCurrentSession().save(entity);
-    }
-
-    @Override
-    public void update(DefaultDesktopEnvironment entity) {
-        getCurrentSession().merge(entity);
-    }
-
-    @Override
-    public DefaultDesktopEnvironment findById(Long id) {
-        DefaultDesktopEnvironment defaultDesktopEnvironment = (DefaultDesktopEnvironment) getCurrentSession().get(DefaultDesktopEnvironment.class, id);
-        return defaultDesktopEnvironment;
-    }
-
-    @Override
-    public void delete(DefaultDesktopEnvironment entity) {
-        getCurrentSession().delete(entity);
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<DefaultDesktopEnvironment> findAll() {
-        List<DefaultDesktopEnvironment> defaultDesktopEnvironments = (List<DefaultDesktopEnvironment>) getCurrentSession().createQuery("from DefaultDesktopEnvironment ").list();
-        return defaultDesktopEnvironments;
-    }
-
-    @Override
-    public void deleteAll() {
-        List<DefaultDesktopEnvironment> entityList = findAll();
-        for (DefaultDesktopEnvironment entity : entityList) {
-            delete(entity);
-        }
-    }
-
 }
