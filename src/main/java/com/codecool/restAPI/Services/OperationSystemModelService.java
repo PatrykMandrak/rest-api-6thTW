@@ -103,21 +103,35 @@ public class OperationSystemModelService implements IModelService<OperationSyste
 
     public String updateOperationSystem(HttpServletRequest request) {
         try {
+            // Comparing many variables to null, that's to allow user to modify only chosen fields
             String operationSystemName = request.getParameter("name");
             Long itemToUpdateId = Long.parseLong(request.getParameter("id"));
-            Long kernelId = Long.parseLong(request.getParameter("kernelId"));
-            Long defaultDesktopEnvironmentId = Long.parseLong(request.getParameter("desktopEnvironmentId"));
 
-            Kernel kernel = kernelService.findById(kernelId);
-            DefaultDesktopEnvironment defaultDesktopEnvironment = defaultDesktopEnvironmentService.findById(defaultDesktopEnvironmentId);
+            Kernel kernel = null;
+            if(request.getParameter("kernelId") != null) {
+                Long kernelId = Long.parseLong(request.getParameter("kernelId"));
+                kernel = kernelService.findById(kernelId);
+            }
 
-            OperationSystem OperationSystemToUpdate = findById(itemToUpdateId);
+            DefaultDesktopEnvironment defaultDesktopEnvironment = null;
+            if(request.getParameter("desktopEnvironmentId") != null) {
+                Long defaultDesktopEnvironmentId = Long.parseLong(request.getParameter("desktopEnvironmentId"));
+                defaultDesktopEnvironment = defaultDesktopEnvironmentService.findById(defaultDesktopEnvironmentId);
+            }
 
-            OperationSystemToUpdate.setName(operationSystemName);
-            OperationSystemToUpdate.setKernel(kernel);
-            OperationSystemToUpdate.setDefaultDesktopEnvironment(defaultDesktopEnvironment);
+            OperationSystem operationSystemToUpdate = findById(itemToUpdateId);
 
-            update(OperationSystemToUpdate);
+            if(operationSystemName != null)
+            operationSystemToUpdate.setName(operationSystemName);
+
+            if(kernel != null)
+            operationSystemToUpdate.setKernel(kernel);
+
+            if(defaultDesktopEnvironment != null)
+            operationSystemToUpdate.setDefaultDesktopEnvironment(defaultDesktopEnvironment);
+
+            if(operationSystemToUpdate != null)
+            update(operationSystemToUpdate);
 
             return "UPDATED"
                     ;

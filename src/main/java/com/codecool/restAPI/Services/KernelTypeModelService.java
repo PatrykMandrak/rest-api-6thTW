@@ -111,13 +111,16 @@ public class KernelTypeModelService implements IModelService<KernelType> {
 
     public String updateKernelType(HttpServletRequest request) {
         try {
+            // Comparing some variables to null, that's to allow user to modify only chosen fields
             Long id = Long.parseLong(request.getParameter("id"));
             String name = request.getParameter("name");
             String description = request.getParameter("description");
 
-
             KernelType kernelType = findById(id);
+
+            if(name != null)
             kernelType.setName(name);
+            if(description != null)
             kernelType.setDescription(description);
 
             update(kernelType);

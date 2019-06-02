@@ -109,10 +109,13 @@ public class DefaultDesktopEnvironmentModelService implements IModelService<Defa
 
     public String udateDefaultDesktopEnvironments(HttpServletRequest request) {
         try {
+            // Comparing some variables to null, that's to allow user to modify only chosen fields
             Long id = Long.parseLong(request.getParameter("id"));
             String name = request.getParameter("name");
 
             DefaultDesktopEnvironment defaultDesktopEnvironment = findById(id);
+
+            if(name != null)
             defaultDesktopEnvironment.setName(name);
 
             update(defaultDesktopEnvironment);
