@@ -6,11 +6,9 @@ import com.codecool.restAPI.Models.KernelType;
 import com.codecool.restAPI.Models.OperationSystem;
 import com.codecool.restAPI.Services.*;
 
+// This class is only for manual testing purposes
 public class App {
     public static void main(String[] args) {
-        System.out.println("dupa");
-
-
 
         KernelModelService kernelService = new KernelModelService();
         KernelTypeModelService kernelTypeService = new KernelTypeModelService();
