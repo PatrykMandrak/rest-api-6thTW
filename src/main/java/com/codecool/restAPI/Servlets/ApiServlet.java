@@ -11,11 +11,11 @@ import java.io.IOException;
 import java.util.*;
 
 public class ApiServlet extends HttpServlet {
-    private OperationSystemService operationSystemService = new OperationSystemService();
-    private DefaultDesktopEnvironmentService defaultDesktopEnvironmentService = new DefaultDesktopEnvironmentService();
-    private KernelService kernelService = new KernelService();
-    private KernelTypeService kernelTypeService = new KernelTypeService();
-    private ApiKeyService apiKeyService = new ApiKeyService();
+    private OperationSystemModelService operationSystemService = new OperationSystemModelService();
+    private DefaultDesktopEnvironmentModelService defaultDesktopEnvironmentService = new DefaultDesktopEnvironmentModelService();
+    private KernelModelService kernelService = new KernelModelService();
+    private KernelTypeModelService kernelTypeService = new KernelTypeModelService();
+    private ApiKeyModelService apiKeyService = new ApiKeyModelService();
 
     @Override
     protected void doGet(HttpServletRequest request,

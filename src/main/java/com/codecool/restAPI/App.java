@@ -12,10 +12,10 @@ public class App {
 
 
 
-        KernelService kernelService = new KernelService();
-        KernelTypeService kernelTypeService = new KernelTypeService();
-        OperationSystemService operationSystemService = new OperationSystemService();
-        DefaultDesktopEnvironmentService defaultDesktopEnvironmentService = new DefaultDesktopEnvironmentService();
+        KernelModelService kernelService = new KernelModelService();
+        KernelTypeModelService kernelTypeService = new KernelTypeModelService();
+        OperationSystemModelService operationSystemService = new OperationSystemModelService();
+        DefaultDesktopEnvironmentModelService defaultDesktopEnvironmentService = new DefaultDesktopEnvironmentModelService();
 
 
         KernelType kernelType1 = new KernelType("kernelTypeName1", "kernelTypeDescription1");

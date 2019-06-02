@@ -8,25 +8,28 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
-public class DefaultDesktopEnvironmentService {
+public class DefaultDesktopEnvironmentModelService implements IModelService<DefaultDesktopEnvironment> {
     private static DefaultDesktopEnvironmentDAO defaultDesktopEnvironmentDAO;
 
-    public DefaultDesktopEnvironmentService() {
+    public DefaultDesktopEnvironmentModelService() {
         defaultDesktopEnvironmentDAO = new DefaultDesktopEnvironmentDAO();
     }
 
+    @Override
     public void persist(DefaultDesktopEnvironment entity) {
         defaultDesktopEnvironmentDAO.openCurrentSessionWithTransaction();
         defaultDesktopEnvironmentDAO.persist(entity);
         defaultDesktopEnvironmentDAO.closeCurrentSessionWithTransaction();
     }
 
+    @Override
     public void update(DefaultDesktopEnvironment entity) {
         defaultDesktopEnvironmentDAO.openCurrentSessionWithTransaction();
         defaultDesktopEnvironmentDAO.update(entity);
         defaultDesktopEnvironmentDAO.closeCurrentSessionWithTransaction();
     }
 
+    @Override
     public DefaultDesktopEnvironment findById(Long id) {
         defaultDesktopEnvironmentDAO.openCurrentSession();
         DefaultDesktopEnvironment defaultDesktopEnvironment = defaultDesktopEnvironmentDAO.findById(id);
@@ -34,6 +37,7 @@ public class DefaultDesktopEnvironmentService {
         return defaultDesktopEnvironment;
     }
 
+    @Override
     public void delete(Long id) {
         defaultDesktopEnvironmentDAO.openCurrentSessionWithTransaction();
         DefaultDesktopEnvironment operationSystem = defaultDesktopEnvironmentDAO.findById(id);
@@ -41,6 +45,7 @@ public class DefaultDesktopEnvironmentService {
         defaultDesktopEnvironmentDAO.closeCurrentSessionWithTransaction();
     }
 
+    @Override
     public List<DefaultDesktopEnvironment> findAll() {
         defaultDesktopEnvironmentDAO.openCurrentSession();
         List<DefaultDesktopEnvironment> defaultDesktopEnvironments = defaultDesktopEnvironmentDAO.findAll();
@@ -48,6 +53,7 @@ public class DefaultDesktopEnvironmentService {
         return defaultDesktopEnvironments;
     }
 
+    @Override
     public void deleteAll() {
         defaultDesktopEnvironmentDAO.openCurrentSessionWithTransaction();
         defaultDesktopEnvironmentDAO.deleteAll();

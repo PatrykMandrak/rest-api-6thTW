@@ -1,18 +1,18 @@
 package com.codecool.restAPI;
 
 import com.codecool.restAPI.Models.ApiKey;
-import com.codecool.restAPI.Services.ApiKeyService;
+import com.codecool.restAPI.Services.ApiKeyModelService;
 
 import java.util.Scanner;
 
 public class AddApiKey {
     private static Scanner scanner = new Scanner(System.in);
-    private static ApiKeyService apiKeyService = new ApiKeyService();
+    private static ApiKeyModelService apiKeyService = new ApiKeyModelService();
 
     public static void main(String[] args) {
         System.out.println("WELCOME TO ULTRA ADMINISTRATOR PANEL PRO");
 
-        ApiKeyService apiKeyService = new ApiKeyService();
+        ApiKeyModelService apiKeyService = new ApiKeyModelService();
 
         String userInput;
 

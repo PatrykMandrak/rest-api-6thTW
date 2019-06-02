@@ -9,27 +9,30 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
-public class KernelService {
+public class KernelModelService implements IModelService<Kernel> {
 
     private static KernelDAO kernelDAO;
-    private KernelTypeService kernelTypeService = new KernelTypeService();
+    private KernelTypeModelService kernelTypeService = new KernelTypeModelService();
 
-    public KernelService() {
+    public KernelModelService() {
         kernelDAO = new KernelDAO();
     }
 
+    @Override
     public void persist(Kernel entity) {
         kernelDAO.openCurrentSessionWithTransaction();
         kernelDAO.persist(entity);
         kernelDAO.closeCurrentSessionWithTransaction();
     }
 
+    @Override
     public void update(Kernel entity) {
         kernelDAO.openCurrentSessionWithTransaction();
         kernelDAO.update(entity);
         kernelDAO.closeCurrentSessionWithTransaction();
     }
 
+    @Override
     public Kernel findById(Long id) {
         kernelDAO.openCurrentSession();
         Kernel kernel = kernelDAO.findById(id);
@@ -37,6 +40,7 @@ public class KernelService {
         return kernel;
     }
 
+    @Override
     public void delete(Long id) {
         kernelDAO.openCurrentSessionWithTransaction();
         Kernel kernel = kernelDAO.findById(id);
@@ -44,6 +48,7 @@ public class KernelService {
         kernelDAO.closeCurrentSessionWithTransaction();
     }
 
+    @Override
     public List<Kernel> findAll() {
         kernelDAO.openCurrentSession();
         List<Kernel> kernels = kernelDAO.findAll();
@@ -51,6 +56,7 @@ public class KernelService {
         return kernels;
     }
 
+    @Override
     public void deleteAll() {
         kernelDAO.openCurrentSessionWithTransaction();
         kernelDAO.deleteAll();

@@ -10,27 +10,30 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
-public class OperationSystemService {
+public class OperationSystemModelService implements IModelService<OperationSystem> {
     private static OperationSystemDAO operationSystemDAO = new OperationSystemDAO();
-    private KernelService kernelService = new KernelService();
-    private DefaultDesktopEnvironmentService defaultDesktopEnvironmentService = new DefaultDesktopEnvironmentService();
+    private KernelModelService kernelService = new KernelModelService();
+    private DefaultDesktopEnvironmentModelService defaultDesktopEnvironmentService = new DefaultDesktopEnvironmentModelService();
 
-    public OperationSystemService() {
+    public OperationSystemModelService() {
         operationSystemDAO = new OperationSystemDAO();
     }
 
+    @Override
     public void persist(OperationSystem entity) {
         operationSystemDAO.openCurrentSessionWithTransaction();
         operationSystemDAO.persist(entity);
         operationSystemDAO.closeCurrentSessionWithTransaction();
     }
 
+    @Override
     public void update(OperationSystem entity) {
         operationSystemDAO.openCurrentSessionWithTransaction();
         operationSystemDAO.update(entity);
         operationSystemDAO.closeCurrentSessionWithTransaction();
     }
 
+    @Override
     public OperationSystem findById(Long id) {
         operationSystemDAO.openCurrentSession();
         OperationSystem operationSystem = operationSystemDAO.findById(id);
@@ -38,6 +41,7 @@ public class OperationSystemService {
         return operationSystem;
     }
 
+    @Override
     public void delete(Long id) {
         operationSystemDAO.openCurrentSessionWithTransaction();
         OperationSystem operationSystem = operationSystemDAO.findById(id);
@@ -45,6 +49,7 @@ public class OperationSystemService {
         operationSystemDAO.closeCurrentSessionWithTransaction();
     }
 
+    @Override
     public List<OperationSystem> findAll() {
         operationSystemDAO.openCurrentSession();
         List<OperationSystem> operationSystemList = operationSystemDAO.findAll();
@@ -52,6 +57,7 @@ public class OperationSystemService {
         return operationSystemList;
     }
 
+    @Override
     public void deleteAll() {
         operationSystemDAO.openCurrentSessionWithTransaction();
         operationSystemDAO.deleteAll();
