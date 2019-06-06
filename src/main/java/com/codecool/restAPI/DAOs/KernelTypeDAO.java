@@ -25,7 +25,7 @@ public class KernelTypeDAO implements IDAO<KernelType, Long> {
 
     @Override
     public KernelType findById(Long id) {
-        KernelType kernelType = (KernelType) getCurrentSession().get(KernelType.class, id);
+        KernelType kernelType = getCurrentSession().get(KernelType.class, id);
         return kernelType;
     }
 

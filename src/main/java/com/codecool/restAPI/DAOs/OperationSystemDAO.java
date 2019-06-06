@@ -26,7 +26,7 @@ public class OperationSystemDAO implements IDAO<OperationSystem, Long> {
     @Override
     public OperationSystem findById(Long id) {
         System.out.println(id);
-        OperationSystem operationSystem = (OperationSystem) getCurrentSession().get(OperationSystem.class, id);
+        OperationSystem operationSystem = getCurrentSession().get(OperationSystem.class, id);
         return operationSystem;
     }
 

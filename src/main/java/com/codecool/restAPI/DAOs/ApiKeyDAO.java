@@ -1,7 +1,6 @@
 package com.codecool.restAPI.DAOs;
 
 import com.codecool.restAPI.Models.ApiKey;
-import com.codecool.restAPI.Models.KernelType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -26,7 +25,7 @@ public class ApiKeyDAO implements IDAO<ApiKey, Long> {
 
     @Override
     public ApiKey findById(Long id) {
-        ApiKey apiKey = (ApiKey) getCurrentSession().get(ApiKey.class, id);
+        ApiKey apiKey = getCurrentSession().get(ApiKey.class, id);
         return apiKey;
     }
 

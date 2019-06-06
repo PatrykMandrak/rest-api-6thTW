@@ -70,7 +70,7 @@ public class ApiServlet extends HttpServlet {
         String apiKey = uriMap.get("apiKey"); // apiKEY
 
         String stringResponse;
-        if(checkIfValidKey(apiKey)) {
+        if (checkIfValidKey(apiKey)) {
             stringResponse = updateEntity(uriMap, request);
         } else {
             stringResponse = "Invalid Key";
@@ -106,8 +106,9 @@ public class ApiServlet extends HttpServlet {
     }
 
     private Map<String, String> mapUriString(String uri) {
-        List<String> uriList = new LinkedList<String>(Arrays.asList(uri.split("/")));
+        List<String> uriList = new LinkedList<>(Arrays.asList(uri.split("/")));
         int notNeededInformationIndex = 0;
+
         uriList.remove(notNeededInformationIndex); // removing empty string
         uriList.remove(notNeededInformationIndex); // removing "api" string
 
@@ -115,9 +116,11 @@ public class ApiServlet extends HttpServlet {
         int apiKeyIndex = 0;
         int elementTypeIndex = 1;
         int optionalElementIdIndex = 2;
+
         uriMap.put("apiKey", uriList.get(apiKeyIndex));
         uriMap.put("elementType", uriList.get(elementTypeIndex));
-        if(uriList.size()==3) {
+
+        if (uriList.size() == 3) {
             uriMap.put("id", uriList.get(optionalElementIdIndex));
         }
         return uriMap;

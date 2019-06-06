@@ -26,7 +26,7 @@ public class KernelDAO implements IDAO<Kernel, Long> {
 
     @Override
     public Kernel findById(Long id) {
-        Kernel kernel = (Kernel) getCurrentSession().get(Kernel.class, id);
+        Kernel kernel = getCurrentSession().get(Kernel.class, id);
         return kernel;
     }
 

@@ -12,8 +12,6 @@ public class AddApiKey {
     public static void main(String[] args) {
         System.out.println("WELCOME TO ULTRA ADMINISTRATOR PANEL PRO");
 
-        ApiKeyModelService apiKeyService = new ApiKeyModelService();
-
         String userInput;
 
         boolean addNew = true;

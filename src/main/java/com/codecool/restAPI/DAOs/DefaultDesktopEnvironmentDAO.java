@@ -25,7 +25,7 @@ public class DefaultDesktopEnvironmentDAO implements IDAO<DefaultDesktopEnvironm
 
     @Override
     public DefaultDesktopEnvironment findById(Long id) {
-        DefaultDesktopEnvironment defaultDesktopEnvironment = (DefaultDesktopEnvironment) getCurrentSession().get(DefaultDesktopEnvironment.class, id);
+        DefaultDesktopEnvironment defaultDesktopEnvironment = getCurrentSession().get(DefaultDesktopEnvironment.class, id);
         return defaultDesktopEnvironment;
     }
 
