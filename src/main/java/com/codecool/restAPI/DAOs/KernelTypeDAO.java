@@ -13,6 +13,42 @@ public class KernelTypeDAO implements IDAO<KernelType, Long> {
 
     private Transaction currentTransaction;
 
+    @Override
+    public void persist(KernelType entity) {
+        getCurrentSession().save(entity);
+    }
+
+    @Override
+    public void update(KernelType entity) {
+        getCurrentSession().merge(entity);
+    }
+
+    @Override
+    public KernelType findById(Long id) {
+        KernelType kernelType = getCurrentSession().get(KernelType.class, id);
+        return kernelType;
+    }
+
+    @Override
+    public void delete(KernelType entity) {
+        getCurrentSession().delete(entity);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<KernelType> findAll() {
+        List<KernelType> kernelTypes = (List<KernelType>) getCurrentSession().createQuery("from KernelType").list();
+        return kernelTypes;
+    }
+
+    @Override
+    public void deleteAll() {
+        List<KernelType> entityList = findAll();
+        for (KernelType entity : entityList) {
+            delete(entity);
+        }
+    }
+
     public Session openCurrentSession() {
         currentSession = getSessionFactory().openSession();
         return currentSession;
@@ -55,34 +91,4 @@ public class KernelTypeDAO implements IDAO<KernelType, Long> {
         this.currentTransaction = currentTransaction;
     }
 
-    public void persist(KernelType entity) {
-        getCurrentSession().save(entity);
-    }
-
-    public void update(KernelType entity) {
-        getCurrentSession().merge(entity);
-    }
-
-
-    public KernelType findById(Long id) {
-        KernelType kernelType = (KernelType) getCurrentSession().get(KernelType.class, id);
-        return kernelType;
-    }
-
-    public void delete(KernelType entity) {
-        getCurrentSession().delete(entity);
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<KernelType> findAll() {
-        List<KernelType> kernelTypes = (List<KernelType>) getCurrentSession().createQuery("from KernelType").list();
-        return kernelTypes;
-    }
-
-    public void deleteAll() {
-        List<KernelType> entityList = findAll();
-        for (KernelType entity : entityList) {
-            delete(entity);
-        }
-    }
 }

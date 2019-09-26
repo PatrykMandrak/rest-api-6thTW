@@ -6,26 +6,30 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
-public class DefaultDesktopEnvironmentService {
+public class DefaultDesktopEnvironmentModelService implements IModelService<DefaultDesktopEnvironment> {
     private static DefaultDesktopEnvironmentDAO defaultDesktopEnvironmentDAO;
 
-    public DefaultDesktopEnvironmentService() {
+    public DefaultDesktopEnvironmentModelService() {
         defaultDesktopEnvironmentDAO = new DefaultDesktopEnvironmentDAO();
     }
 
+    @Override
     public void persist(DefaultDesktopEnvironment entity) {
         defaultDesktopEnvironmentDAO.openCurrentSessionWithTransaction();
         defaultDesktopEnvironmentDAO.persist(entity);
         defaultDesktopEnvironmentDAO.closeCurrentSessionWithTransaction();
     }
 
+    @Override
     public void update(DefaultDesktopEnvironment entity) {
         defaultDesktopEnvironmentDAO.openCurrentSessionWithTransaction();
         defaultDesktopEnvironmentDAO.update(entity);
         defaultDesktopEnvironmentDAO.closeCurrentSessionWithTransaction();
     }
 
+    @Override
     public DefaultDesktopEnvironment findById(Long id) {
         defaultDesktopEnvironmentDAO.openCurrentSession();
         DefaultDesktopEnvironment defaultDesktopEnvironment = defaultDesktopEnvironmentDAO.findById(id);
@@ -33,6 +37,7 @@ public class DefaultDesktopEnvironmentService {
         return defaultDesktopEnvironment;
     }
 
+    @Override
     public void delete(Long id) {
         defaultDesktopEnvironmentDAO.openCurrentSessionWithTransaction();
         DefaultDesktopEnvironment operationSystem = defaultDesktopEnvironmentDAO.findById(id);
@@ -40,6 +45,7 @@ public class DefaultDesktopEnvironmentService {
         defaultDesktopEnvironmentDAO.closeCurrentSessionWithTransaction();
     }
 
+    @Override
     public List<DefaultDesktopEnvironment> findAll() {
         defaultDesktopEnvironmentDAO.openCurrentSession();
         List<DefaultDesktopEnvironment> defaultDesktopEnvironments = defaultDesktopEnvironmentDAO.findAll();
@@ -47,6 +53,7 @@ public class DefaultDesktopEnvironmentService {
         return defaultDesktopEnvironments;
     }
 
+    @Override
     public void deleteAll() {
         defaultDesktopEnvironmentDAO.openCurrentSessionWithTransaction();
         defaultDesktopEnvironmentDAO.deleteAll();
@@ -57,17 +64,15 @@ public class DefaultDesktopEnvironmentService {
         return defaultDesktopEnvironmentDAO;
     }
 
-    public String getDefaultDekstopEnvironmentAsJson(List<String> splittedUri) throws JsonProcessingException {
+    public String getDefaultDekstopEnvironmentAsJson(Map<String, String> uriMap) throws JsonProcessingException {
         ObjectToJsonService objectToJsonService = new ObjectToJsonService();
 
-        if (splittedUri.size() == 2) {
+        if (!uriMap.containsKey("id")) {
             List<DefaultDesktopEnvironment> defaultDesktopEnvironmentList = findAll();
             return objectToJsonService.convertObjectToJson(defaultDesktopEnvironmentList);
-        } else if (splittedUri.size() == 3) {
-            DefaultDesktopEnvironment defaultDesktopEnvironment = findById(Long.parseLong(splittedUri.get(2)));
-            return objectToJsonService.convertObjectToJson(defaultDesktopEnvironment);
         } else {
-            return "Wrong URI";
+            DefaultDesktopEnvironment defaultDesktopEnvironment = findById(Long.parseLong(uriMap.get("id")));
+            return objectToJsonService.convertObjectToJson(defaultDesktopEnvironment);
         }
     }
 
@@ -104,16 +109,19 @@ public class DefaultDesktopEnvironmentService {
 
     public String udateDefaultDesktopEnvironments(HttpServletRequest request) {
         try {
+            // Comparing some variables to null, that's to allow user to modify only chosen fields
             Long id = Long.parseLong(request.getParameter("id"));
             String name = request.getParameter("name");
 
             DefaultDesktopEnvironment defaultDesktopEnvironment = findById(id);
-            defaultDesktopEnvironment.setName(name);
+
+            if (name != null)
+                defaultDesktopEnvironment.setName(name);
 
             update(defaultDesktopEnvironment);
 
             return "UPDATED";
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "ERROR";

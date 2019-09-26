@@ -10,10 +10,49 @@ import org.hibernate.cfg.Configuration;
 
 
 public class KernelDAO implements IDAO<Kernel, Long> {
-
     private Session currentSession;
 
     private Transaction currentTransaction;
+
+    @Override
+    public void persist(Kernel entity) {
+        getCurrentSession().save(entity);
+    }
+
+    @Override
+    public void update(Kernel entity) {
+        getCurrentSession().merge(entity);
+    }
+
+    @Override
+    public Kernel findById(Long id) {
+        Kernel kernel = getCurrentSession().get(Kernel.class, id);
+        return kernel;
+    }
+
+    @Override
+    public void delete(Kernel entity) {
+        getCurrentSession().delete(entity);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Kernel> findAll() {
+        List<Kernel> kernels = (List<Kernel>) getCurrentSession().createQuery("from Kernel ").list();
+        return kernels;
+    }
+
+    public void deleteAll() {
+        List<Kernel> entityList = findAll();
+        for (Kernel entity : entityList) {
+            delete(entity);
+        }
+    }
+
+    public void setCurrentTransaction(Transaction currentTransaction) {
+        this.currentTransaction = currentTransaction;
+    }
+
 
     public Session openCurrentSession() {
         currentSession = getSessionFactory().openSession();
@@ -51,41 +90,6 @@ public class KernelDAO implements IDAO<Kernel, Long> {
 
     public Transaction getCurrentTransaction() {
         return currentTransaction;
-    }
-
-    public void setCurrentTransaction(Transaction currentTransaction) {
-        this.currentTransaction = currentTransaction;
-    }
-
-    public void persist(Kernel entity) {
-        getCurrentSession().save(entity);
-    }
-
-    public void update(Kernel entity) {
-        getCurrentSession().merge(entity);
-    }
-
-
-    public Kernel findById(Long id) {
-        Kernel kernel = (Kernel) getCurrentSession().get(Kernel.class, id);
-        return kernel;
-    }
-
-    public void delete(Kernel entity) {
-        getCurrentSession().delete(entity);
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<Kernel> findAll() {
-        List<Kernel> kernels = (List<Kernel>) getCurrentSession().createQuery("from Kernel ").list();
-        return kernels;
-    }
-
-    public void deleteAll() {
-        List<Kernel> entityList = findAll();
-        for (Kernel entity : entityList) {
-            delete(entity);
-        }
     }
 
 }

@@ -7,28 +7,32 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
-public class KernelService {
+public class KernelModelService implements IModelService<Kernel> {
 
     private static KernelDAO kernelDAO;
-    private KernelTypeService kernelTypeService = new KernelTypeService();
+    private KernelTypeModelService kernelTypeService = new KernelTypeModelService();
 
-    public KernelService() {
+    public KernelModelService() {
         kernelDAO = new KernelDAO();
     }
 
+    @Override
     public void persist(Kernel entity) {
         kernelDAO.openCurrentSessionWithTransaction();
         kernelDAO.persist(entity);
         kernelDAO.closeCurrentSessionWithTransaction();
     }
 
+    @Override
     public void update(Kernel entity) {
         kernelDAO.openCurrentSessionWithTransaction();
         kernelDAO.update(entity);
         kernelDAO.closeCurrentSessionWithTransaction();
     }
 
+    @Override
     public Kernel findById(Long id) {
         kernelDAO.openCurrentSession();
         Kernel kernel = kernelDAO.findById(id);
@@ -36,6 +40,7 @@ public class KernelService {
         return kernel;
     }
 
+    @Override
     public void delete(Long id) {
         kernelDAO.openCurrentSessionWithTransaction();
         Kernel kernel = kernelDAO.findById(id);
@@ -43,6 +48,7 @@ public class KernelService {
         kernelDAO.closeCurrentSessionWithTransaction();
     }
 
+    @Override
     public List<Kernel> findAll() {
         kernelDAO.openCurrentSession();
         List<Kernel> kernels = kernelDAO.findAll();
@@ -50,6 +56,7 @@ public class KernelService {
         return kernels;
     }
 
+    @Override
     public void deleteAll() {
         kernelDAO.openCurrentSessionWithTransaction();
         kernelDAO.deleteAll();
@@ -60,17 +67,15 @@ public class KernelService {
         return kernelDAO;
     }
 
-    public String getKernelAsJson(List<String> splittedUri) throws JsonProcessingException {
+    public String getKernelAsJson(Map<String, String> uriMap) throws JsonProcessingException {
         ObjectToJsonService objectToJsonService = new ObjectToJsonService();
 
-        if (splittedUri.size() == 2) {
+        if (!uriMap.containsKey("id")) {
             List<Kernel> kernelList = findAll();
             return objectToJsonService.convertObjectToJson(kernelList);
-        } else if (splittedUri.size() == 3) {
-            Kernel kernel = findById(Long.parseLong(splittedUri.get(2)));
-            return objectToJsonService.convertObjectToJson(kernel);
         } else {
-            return "Your URL is too creazy brooooooo ";
+            Kernel kernel = findById(Long.parseLong(uriMap.get("id")));
+            return objectToJsonService.convertObjectToJson(kernel);
         }
     }
 
@@ -112,22 +117,31 @@ public class KernelService {
 
     public String updateKernel(HttpServletRequest request) {
         try {
+            // Comparing many variables to null, that's to allow user to modify only chosen fields
             Long id = Long.parseLong(request.getParameter("id"));
-            Long kernelTypeId = Long.parseLong(request.getParameter("kernelTypeId"));
+
+            KernelType kernelType = null;
+            if (request.getParameter("kernelTypeId") != null) {
+                Long kernelTypeId = Long.parseLong(request.getParameter("kernelTypeId"));
+                kernelType = kernelTypeService.findById(kernelTypeId);
+            }
+
             String name = request.getParameter("name");
             String description = request.getParameter("description");
 
             Kernel kernel = findById(id);
-            KernelType kernelType = kernelTypeService.findById(kernelTypeId);
 
-            kernel.setKernelType(kernelType);
-            kernel.setName(name);
-            kernel.setDescription(description);
+
+            if (kernelType != null)
+                kernel.setKernelType(kernelType);
+            if (name != null)
+                kernel.setName(name);
+            if (description != null)
+                kernel.setDescription(description);
 
             update(kernel);
 
-            return "UPDATED"
-                    ;
+            return "UPDATED";
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.toString());
